@@ -24,8 +24,8 @@ class OptionsMenu extends MusicBeatState
 	private var defCat:OptionCategory = new OptionCategory("Default",[
 		new OptionCategory("Mobile",[
 			new OptionCategory("Another Mobile",[
-        			new StateOption("Mobile Controls",new CustomControlsState()),
-              new StateOption("About",new AboutState()),
+        			new MobileControls("Mobile Controls",new CustomControlsState()),
+                                new AboutState("About",new AboutState()),
 			]),
 	]);
 
