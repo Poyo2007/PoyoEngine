@@ -801,6 +801,8 @@ class PlayState extends MusicBeatState
 		doof.finishThing = startCountdown;
 
 		Conductor.songPosition = -5000;
+		
+		//not letting a fuck up happen
 
 		if (!downscroll_isenabled){
 			strumLine = new FlxSprite(0, 50).makeGraphic(FlxG.width, 10);
