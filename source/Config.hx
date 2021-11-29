@@ -26,6 +26,19 @@ class Config {
         if (save.data.isdownscroll != null) return save.data.isdownscroll;
         return false;
     }
+    
+    public function setnobg(?value:Bool):Bool {
+		if (save.data.nobg == null) save.data.nobg = false;
+		
+		save.data.nobg = !save.data.nobg;
+		save.flush();
+        return save.data.nobg;
+	}
+
+    public function getnobg():Bool {
+        if (save.data.nobg != null) return save.data.nobg;
+        return false;
+    }
 
     public function getcontrolmode():Int {
         // load control mode num from FlxSave
