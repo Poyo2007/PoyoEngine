@@ -180,7 +180,7 @@ class OptionsMenu extends MusicBeatState
 			}
 		}
 
-		if(accepted){
+		if(ACCEPT){
 			if(option.type=='Category'){
 				category=option;
 				refresh();
