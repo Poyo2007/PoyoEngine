@@ -39,6 +39,19 @@ class Config {
         if (save.data.nobg != null) return save.data.nobg;
         return false;
     }
+    
+    public function setnochar(?value:Bool):Bool {
+		if (save.data.nochar == null) save.data.nochar = false;
+		
+		save.data.nochar = !save.data.nochar;
+		save.flush();
+        return save.data.nochar;
+	}
+
+    public function getnochar():Bool {
+        if (save.data.nochar != null) return save.data.nochar;
+        return false;
+    }
 
     public function getcontrolmode():Int {
         // load control mode num from FlxSave

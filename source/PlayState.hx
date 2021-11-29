@@ -150,6 +150,7 @@ class PlayState extends MusicBeatState
 	var config:Config = new Config();
 	var downscroll_isenabled:Bool = false;
 	var nobg_isenabled:Bool = false;
+	var nochar_isenabled:Bool = false;
 
 	override public function create()
 	{
@@ -161,6 +162,7 @@ class PlayState extends MusicBeatState
 		// get downscroll settings
 		downscroll_isenabled = config.getdownscroll();
 		nobg_isenabled = config.getnobg();
+		nochar_isenabled = config.getnochar();
 
 
 		// var gameCam:FlxCamera = FlxG.camera;
@@ -784,15 +786,22 @@ class PlayState extends MusicBeatState
 				gf.x += 180;
 				gf.y += 300;
 		}
+		
+		if (!nochar_isenabled)
+		{
 
 		add(gf);
+		}
 
 		// Shitty layering but whatev it works LOL
 		if (curStage == 'limo')
 			add(limo);
+			if (!nochar_isenabled)
+			{
 
 		add(dad);
 		add(boyfriend);
+			}
 
 		var doof:DialogueBox = new DialogueBox(false, dialogue);
 		// doof.x += 70;

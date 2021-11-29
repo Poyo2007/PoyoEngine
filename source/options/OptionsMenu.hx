@@ -28,7 +28,7 @@ class OptionsMenu extends MusicBeatState
 
 	private var grpControls:FlxTypedGroup<Alphabet>;
 
-	var menuItems:Array<String> = ['controls', 'set fps', 'downscroll: off', 'bg', 'About'];
+	var menuItems:Array<String> = ['controls', 'set fps', 'downscroll: off', 'bg', 'characters', 'About'];
 
 	var _pad:FlxVirtualPad;
 
@@ -61,6 +61,10 @@ class OptionsMenu extends MusicBeatState
 		
 		if (config.getnobg()){
 			menuItems[menuItems.indexOf('bg')] = 'no bg';
+		}
+		
+		if (config.getnochar()){
+			menuItems[menuItems.indexOf('characters')] = 'no characters';
 		}
 
 		for (i in 0...menuItems.length)
