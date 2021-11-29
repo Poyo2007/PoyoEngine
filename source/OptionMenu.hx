@@ -12,8 +12,10 @@ import flixel.math.FlxMath;
 import flixel.text.FlxText;
 import flixel.util.FlxColor;
 import lime.utils.Assets;
+import ui.FlxVirtualPad;
 import flixel.addons.transition.FlxTransitionableState;
-import Options;
+import Option;
+import lime.app.Application;
 #if desktop
 import Discord.DiscordClient;
 #end
@@ -33,6 +35,8 @@ class OptionsMenu extends MusicBeatState
 	private var curSelected:Int = 0;
 	public static var category:Dynamic;
 
+	var _pad:FlxVirtualPad;
+
 	override function create()
 	{
 		#if desktop
@@ -51,6 +55,10 @@ class OptionsMenu extends MusicBeatState
 
 		optionText = new FlxTypedGroup<Option>();
 		add(optionText);
+
+		_pad = new FlxVirtualPad(FULL, A_B);
+		_pad.alpha = 0.75;
+		this.add(_pad);
 
 		refresh();
 
@@ -108,28 +116,27 @@ class OptionsMenu extends MusicBeatState
 		var rightP = false;
 		var accepted = false;
 		var back = false;
-		if(controls.keyboardScheme!=None){
-			upP = controls.UP_P;
-			downP = controls.DOWN_P;
-			leftP = controls.LEFT_P;
-			rightP = controls.RIGHT_P;
 
-			accepted = controls.ACCEPT;
-			back = controls.BACK;
-		}
+		var UP_P = _pad.buttonUp.justPressed;
+		var DOWN_P = _pad.buttonDown.justPressed;
+		var LEFT_P = _pad.buttonLeft.justPressed;
+		var RIGHT_P = _pad.buttonRight.justPressed;
+		var BACK = _pad.buttonB.justPressed;
+		var ACCEPT = _pad.buttonA.justPressed;
 
-		if (upP)
+
+		if (UP_P)
 		{
 			changeSelection(-1);
 		}
-		if (downP)
+		if (DOWN_P)
 		{
 			changeSelection(1);
 		}
 
 		var option = category.options[curSelected];
 
-		if (back)
+		if (BACK)
 		{
 			if(category!=defCat){
 				category.curSelected=0;
@@ -142,13 +149,13 @@ class OptionsMenu extends MusicBeatState
 			}
 		}
 		if(option.type!="Category"){
-			if(leftP){
+			if(LEFT_P){
 				if(option.left()) {
 					option.createOptionText(curSelected,optionText);
 					changeSelection();
 				}
 			}
-			if(rightP){
+			if(RIGHT_P){
 				if(option.right()) {
 					option.createOptionText(curSelected,optionText);
 					changeSelection();
