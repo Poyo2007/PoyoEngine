@@ -123,6 +123,10 @@ class OptionsMenu extends MusicBeatState
 			  case "bg" | "no bg":
 					config.setnobg();
 					FlxG.resetState();
+					
+				case "characters" | "no characters":
+					config.setnochar();
+					FlxG.resetState();
 				
 				case "About":
 					FlxG.switchState(new options.AboutState());
