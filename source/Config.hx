@@ -40,6 +40,19 @@ class Config {
         return false;
     }
     
+   /* public function setmidscroll(?value:Bool):Bool {
+		if (save.data.midscroll == null) save.data.midscroll = false;
+		
+		save.data.midscroll = !save.data.midscroll;
+		save.flush();
+        return save.data.midscroll;
+	}
+
+    public function getmidscroll():Bool {
+        if (save.data.midscroll != null) return save.data.midscroll;
+        return false;
+    }*/
+    
     public function setnochar(?value:Bool):Bool {
 		if (save.data.nochar == null) save.data.nochar = false;
 		

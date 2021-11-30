@@ -57,20 +57,7 @@
 	<assets path="assets/preload" rename="assets" exclude="*.mp3" unless="web"/>
 	
 	<!-- <define name="PRELOAD_ALL" /> -->
-	<define name="PRELOAD_ALL" unless="web" />
-	<define name="NO_PRELOAD_ALL" unless="PRELOAD_ALL"/>
-	
-	<section if="PRELOAD_ALL">
-		<library name="songs"    preload="true" />
-		<library name="shared"   preload="true" />
-		<library name="tutorial" preload="true" />
-		<library name="week1"    preload="true" />
-		<library name="week2"    preload="true" />
-		<library name="week3"    preload="true" />
-		<library name="week4"    preload="true" />
-		<library name="week5"    preload="true" />
-		<library name="week6"    preload="true" />
-	</section>
+	<define name="NO_PRELOAD_ALL"/>
 	
 	<section if="NO_PRELOAD_ALL">
 		<library name="songs"    preload="false" />

@@ -149,7 +149,6 @@ class TitleState extends MusicBeatState
 		gfDance.animation.addByIndices('danceLeft', 'gfDance', [30, 0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14], "", 24, false);
 		gfDance.animation.addByIndices('danceRight', 'gfDance', [15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29], "", 24, false);
 		gfDance.antialiasing = true;
-		add(gfDance);
 		add(logoBl);
 
 		titleText = new FlxSprite(100, FlxG.height * 0.8);
@@ -160,7 +159,28 @@ class TitleState extends MusicBeatState
 		titleText.animation.play('idle');
 		titleText.updateHitbox();
 		// titleText.screenCenter(X);
-		add(titleText);
+		//add(titleText);
+		
+		var daninnocentTxt:FlxText;
+		var wordWrap:Bool = false;
+    var autoSize:Bool = true;
+
+
+
+daninnocentTxt = new FlxText(100,);
+#if desktop
+{
+daninnocentTxt.text = "Press Enter to Start";
+}
+else
+{
+  daninnocentTxt.text = "Tap to Start";
+}
+daninnocentTxt.setFormat(Paths.font("vcr.ttf"), 30, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE,FlxColor.BLACK);
+daninnocentTxt.scrollFactor.set();
+add(daninnocentTxt);
+
+daninnocentTxt.cameras = [camHUD];
 
 		var logo:FlxSprite = new FlxSprite().loadGraphic(Paths.image('logo'));
 		logo.screenCenter();
