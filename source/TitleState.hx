@@ -165,22 +165,18 @@ class TitleState extends MusicBeatState
 		var wordWrap:Bool = false;
     var autoSize:Bool = true;
 
-
-
-daninnocentTxt = new FlxText(100,);
-#if desktop
-{
-daninnocentTxt.text = "Press Enter to Start";
-}
-else
-{
-  daninnocentTxt.text = "Tap to Start";
-}
-daninnocentTxt.setFormat(Paths.font("vcr.ttf"), 30, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE,FlxColor.BLACK);
-daninnocentTxt.scrollFactor.set();
-add(daninnocentTxt);
-
-daninnocentTxt.cameras = [camHUD];
+    daninnocentTxt = new FlxText(100);
+    #if desktop
+    {
+    daninnocentTxt.text = "Press Enter to Start";
+    }
+    else
+    {
+      daninnocentTxt.text = "Tap to Start";
+    }
+    daninnocentTxt.setFormat(Paths.font("vcr.ttf"), 30, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE,FlxColor.BLACK);
+    daninnocentTxt.scrollFactor.set();
+    add(daninnocentTxt);
 
 		var logo:FlxSprite = new FlxSprite().loadGraphic(Paths.image('logo'));
 		logo.screenCenter();
