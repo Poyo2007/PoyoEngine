@@ -170,7 +170,7 @@ class TitleState extends MusicBeatState
     {
     daninnocentTxt.text = "Press Enter to Start";
     }
-    else
+    #else if mobile
     {
       daninnocentTxt.text = "Tap to Start";
     }
