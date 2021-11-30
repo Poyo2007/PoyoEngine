@@ -178,6 +178,7 @@ class TitleState extends MusicBeatState
     {
       daninnocentTxt.text = "Uuuh, how do you press start on this thing?";
     }
+    #end
     daninnocentTxt.setFormat(Paths.font("vcr.ttf"), 30, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE,FlxColor.BLACK);
     daninnocentTxt.scrollFactor.set();
     add(daninnocentTxt);
