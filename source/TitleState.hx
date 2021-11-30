@@ -170,9 +170,13 @@ class TitleState extends MusicBeatState
     {
     daninnocentTxt.text = "Press Enter to Start";
     }
-    #else if mobile
+    #elseif mobile
     {
       daninnocentTxt.text = "Tap to Start";
+    }
+    #else
+    {
+      daninnocentTxt.text = "Uuuh, how do you press start on this thing?";
     }
     daninnocentTxt.setFormat(Paths.font("vcr.ttf"), 30, FlxColor.WHITE, RIGHT, FlxTextBorderStyle.OUTLINE,FlxColor.BLACK);
     daninnocentTxt.scrollFactor.set();
