@@ -62,8 +62,6 @@ daninnocentTxt.setFormat(Paths.font("vcr.ttf"), 30, FlxColor.WHITE, RIGHT, FlxTe
 daninnocentTxt.scrollFactor.set();
 daninnocentTxt.screenCenter();
 add(daninnocentTxt);
-
-daninnocentTxt.cameras = [camHUD];
 		
 		initSongsManifest().onComplete
 		(
