@@ -63,7 +63,7 @@ class OptionsMenu extends MusicBeatState
 			menuItems[menuItems.indexOf('bg')] = 'no bg';
 		}
 		
-		if (config.getdialogue()){
+		if (config.getnodialogue()){
 			menuItems[menuItems.indexOf('dialogue')] = 'no dialogue';
 		}
 		
