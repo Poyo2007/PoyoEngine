@@ -135,11 +135,12 @@ class TitleState extends MusicBeatState
 		// bg.updateHitbox();
 		add(bg);
 
-		logoBl = new FlxSprite(-150, -100);
+		logoBl = new FlxSprite();
 		logoBl.frames = Paths.getSparrowAtlas('logoBumpin');
 		logoBl.antialiasing = true;
 		logoBl.animation.addByPrefix('bump', 'logo bumpin', 24);
 		logoBl.animation.play('bump');
+		logoBl.screenCenter();
 		logoBl.updateHitbox();
 		// logoBl.screenCenter();
 		// logoBl.color = FlxColor.BLACK;
@@ -165,7 +166,7 @@ class TitleState extends MusicBeatState
 		var wordWrap:Bool = false;
     var autoSize:Bool = true;
 
-    daninnocentTxt = new FlxText(100);
+    daninnocentTxt = new FlxText(500, 550);
     #if desktop
     {
     daninnocentTxt.text = "Press Enter to Start";
