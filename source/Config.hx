@@ -27,6 +27,19 @@ class Config {
         return false;
     }
     
+    public function setnodialogue(?value:Bool):Bool {
+		if (save.data.nodialogue == null) save.data.nodialogue = false;
+		
+		save.data.nodialogue = !save.data.nodialogue;
+		save.flush();
+        return save.data.nodialogue;
+	}
+
+    public function getnodialogue():Bool {
+        if (save.data.nodialogue != null) return save.data.nodialogue;
+        return false;
+    }
+    
     public function setnobg(?value:Bool):Bool {
 		if (save.data.nobg == null) save.data.nobg = false;
 		

@@ -163,6 +163,7 @@ class PlayState extends MusicBeatState
 		downscroll_isenabled = config.getdownscroll();
 		nobg_isenabled = config.getnobg();
 		nochar_isenabled = config.getnochar();
+		nodialogue_isenabled = config.getnodialogue();
 
 
 		// var gameCam:FlxCamera = FlxG.camera;
@@ -909,7 +910,7 @@ class PlayState extends MusicBeatState
 		// cameras = [FlxG.cameras.list[1]];
 		startingSong = true;
 
-		if (isStoryMode)
+		if (isStoryMode && !nodialogue_isenabled)
 		{
 			switch (curSong.toLowerCase())
 			{

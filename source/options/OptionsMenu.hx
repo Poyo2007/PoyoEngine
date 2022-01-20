@@ -63,6 +63,10 @@ class OptionsMenu extends MusicBeatState
 			menuItems[menuItems.indexOf('bg')] = 'no bg';
 		}
 		
+		if (config.getdialogue()){
+			menuItems[menuItems.indexOf('dialogue')] = 'no dialogue';
+		}
+		
 		if (config.getnochar()){
 			menuItems[menuItems.indexOf('characters')] = 'no characters';
 		}
@@ -122,6 +126,10 @@ class OptionsMenu extends MusicBeatState
 					
 			  case "bg" | "no bg":
 					config.setnobg();
+					FlxG.resetState();
+				
+				case "dialogue" | "no dialogue":
+					config.setnodialogue();
 					FlxG.resetState();
 					
 				case "characters" | "no characters":
