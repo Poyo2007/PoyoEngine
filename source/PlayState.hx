@@ -150,6 +150,8 @@ class PlayState extends MusicBeatState
 
 	var config:Config = new Config();
 	var downscroll_isenabled:Bool = false;
+	var midscroll_isenabled:Bool = false;
+	var circles_isenabled:Bool = false;
 	var nobg_isenabled:Bool = false;
 	var nochar_isenabled:Bool = false;
 	var nodialogue_isenabled:Bool = false;
@@ -164,6 +166,7 @@ class PlayState extends MusicBeatState
 		// part of mobile controls in 750 line
 		// get downscroll settings
 		downscroll_isenabled = config.getdownscroll();
+		circles_isenabled = config.getcircles();
 		nobg_isenabled = config.getnobg();
 		nochar_isenabled = config.getnochar();
 		nodialogue_isenabled = config.getnodialogue();
@@ -1295,7 +1298,14 @@ class PlayState extends MusicBeatState
 			switch (curStage)
 			{
 				case 'school' | 'schoolEvil':
+				if (!circles_isenabled)
+				  {
 					babyArrow.loadGraphic(Paths.image('weeb/pixelUI/arrows-pixels'), true, 17, 17);
+				  }
+				  else
+				  {
+				  babyArrow.loadGraphic(Paths.image('weeb/pixelUI/circles-pixels'), true, 17, 17);
+				  }
 					babyArrow.animation.add('green', [6]);
 					babyArrow.animation.add('red', [7]);
 					babyArrow.animation.add('blue', [5]);
@@ -1330,7 +1340,14 @@ class PlayState extends MusicBeatState
 					}
 
 				default:
+				  if (!circles_isenabled)
+				  {
 					babyArrow.frames = Paths.getSparrowAtlas('NOTE_assets');
+				  }
+				  else
+				  {
+				  babyArrow.frames = Paths.getSparrowAtlas('circleNOTE_assets');
+				  }
 					babyArrow.animation.addByPrefix('green', 'arrowUP');
 					babyArrow.animation.addByPrefix('blue', 'arrowDOWN');
 					babyArrow.animation.addByPrefix('purple', 'arrowLEFT');
@@ -1380,7 +1397,16 @@ class PlayState extends MusicBeatState
 			{
 				playerStrums.add(babyArrow);
 			}
+			
+			if (midscroll_isenabled && player == 0)
+			{
+				babyArrow.visible = false;
+			}
 
+			if (midscroll_isenabled)
+			{
+				babyArrow.x -= 275;
+			}
 			babyArrow.animation.play('static');
 			babyArrow.x += 50;
 			babyArrow.x += ((FlxG.width / 2) * player);
