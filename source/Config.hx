@@ -79,6 +79,19 @@ class Config {
         return false;
     }
     
+    public function setcircles(?value:Bool):Bool {
+		if (save.data.circles == null) save.data.circles = false;
+		
+		save.data.circles = !save.data.circles;
+		save.flush();
+        return save.data.circles;
+	}
+
+    public function getcircles():Bool {
+        if (save.data.circles != null) return save.data.circles;
+        return false;
+    }
+    
     public function setnochar(?value:Bool):Bool {
 		if (save.data.nochar == null) save.data.nochar = false;
 		
