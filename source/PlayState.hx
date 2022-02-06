@@ -2400,12 +2400,28 @@ class PlayState extends MusicBeatState
 			{
 				case 0:
 					boyfriend.playAnim('singLEFTmiss', true);
+					if (hitsounds_areenabled)
+			    {
+			      hitSound.play(true);
+			    }
 				case 1:
 					boyfriend.playAnim('singDOWNmiss', true);
+					if (hitsounds_areenabled)
+			    {
+			      hitSound.play(true);
+			    }
 				case 2:
 					boyfriend.playAnim('singUPmiss', true);
+					if (hitsounds_areenabled)
+			    {
+			      hitSound.play(true);
+			    }
 				case 3:
 					boyfriend.playAnim('singRIGHTmiss', true);
+					if (hitsounds_areenabled)
+			    {
+			      hitSound.play(true);
+			    }
 			}
 		}
 	}
