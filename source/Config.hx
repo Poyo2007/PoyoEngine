@@ -28,7 +28,7 @@ class Config {
 	}
 
     public function gethitsound():Bool {
-        if (save.data.usehitsound != null) return save.data.usehitsound;
+        if (save.data.usehitsound != n okull) return save.data.usehitsound;
         return false;
     }
     

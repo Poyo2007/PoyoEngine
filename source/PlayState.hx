@@ -83,6 +83,7 @@ class PlayState extends MusicBeatState
 	private var gfSpeed:Int = 1;
 	private var health:Float = 1;
 	private var combo:Int = 0;
+	private var total:Int = 0;
 
 	private var healthBarBG:FlxSprite;
 	private var healthBar:FlxBar;
@@ -887,8 +888,13 @@ class PlayState extends MusicBeatState
 		// healthBar
 		add(healthBar);
 
-		scoreTxt = new FlxText(healthBarBG.x + healthBarBG.width - 190, healthBarBG.y + 30, 0, "", 20);
-		scoreTxt.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, RIGHT);
+		/*scoreTxt = new FlxText(healthBarBG.x + healthBarBG.width - 190, healthBarBG.y + 30, 0, "", 20);
+		scoreTxt.setFormat(Paths.font("vcr.ttf"), 24, FlxColor.WHITE, RIGHT);
+		scoreTxt.scrollFactor.set();
+		add(scoreTxt);*/
+		
+		scoreTxt = new FlxText(45, 540, "", 20);
+		scoreTxt.setFormat(Paths.font("vcr.ttf"), 24, FlxColor.WHITE, RIGHT);
 		scoreTxt.scrollFactor.set();
 		add(scoreTxt);
 
@@ -1532,7 +1538,7 @@ class PlayState extends MusicBeatState
 
 		super.update(elapsed);
 
-		scoreTxt.text = "Score:" + songScore;
+		scoreTxt.text = "Score:" + songScore + "| Total Notes Hit:" + total;
 
 		#if android
 		var enterPressed = FlxG.keys.justPressed.ENTER || FlxG.android.justReleased.BACK;
@@ -2448,8 +2454,13 @@ class PlayState extends MusicBeatState
 		{
 			if (!note.isSustainNote)
 			{
-				popUpScore(note.strumTime);
+				popUpScore(note.strumTime
+				if (hitsounds_areenabled)
+			    {
+			      hitSound.play(true);
+			    }
 				combo += 1;
+				total += 1;
 			}
 
 			if (note.noteData >= 0)
@@ -2461,28 +2472,12 @@ class PlayState extends MusicBeatState
 			{
 				case 0:
 					boyfriend.playAnim('singLEFT', true);
-					if (hitsounds_areenabled)
-			    {
-			      hitSound.play(true);
-			    }
 				case 1:
 					boyfriend.playAnim('singDOWN', true);
-					if (hitsounds_areenabled)
-			    {
-			      hitSound.play(true);
-			    }
 				case 2:
 					boyfriend.playAnim('singUP', true);
-					if (hitsounds_areenabled)
-			    {
-			      hitSound.play(true);
-			    }
 				case 3:
 					boyfriend.playAnim('singRIGHT', true);
-					if (hitsounds_areenabled)
-			    {
-			      hitSound.play(true);
-			    }
 			}
 
 			playerStrums.forEach(function(spr:FlxSprite)
