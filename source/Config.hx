@@ -14,21 +14,16 @@ class Config {
     	save.bind("saveconrtol");
     }
 
-    public function getdownscroll():Bool {
-        if (save.data.isdownscroll != null) return save.data.isdownscroll;
-        return false;
-    }
-    
     public function setdownscroll(?value:Bool):Bool {
 		if (save.data.isdownscroll == null) save.data.isdownscroll = false;
 		
 		save.data.isdownscroll = !save.data.isdownscroll;
 		save.flush();
-    return save.data.isdownscroll;
+        return save.data.isdownscroll;
 	}
 
-    public function gethitsound():Bool {
-        if (save.data.usehitsound != n okull) return save.data.usehitsound;
+    public function getdownscroll():Bool {
+        if (save.data.isdownscroll != null) return save.data.isdownscroll;
         return false;
     }
     
@@ -40,24 +35,11 @@ class Config {
         return save.data.usehitsound;
 	}
 
-    public function getcirclearrows():Bool {
-        if (save.data.usecirclearrows != null) return save.data.usecirclearrows;
+    public function gethitsound():Bool {
+        if (save.data.usehitsound != null) return save.data.usehitsound;
         return false;
     }
 
-    public function setcirclearrows(?value:Bool):Bool {
-		if (save.data.usecirclearrows == null) save.data.usecirclearrows = false;
-		
-		save.data.usecirclearrows = !save.data.usecirclearrows;
-		save.flush();
-        return save.data.usecirclearrows;
-	}
-
-    public function getnodialogue():Bool {
-        if (save.data.nodialogue != null) return save.data.nodialogue;
-        return false;
-    }
-    
     public function setnodialogue(?value:Bool):Bool {
 		if (save.data.nodialogue == null) save.data.nodialogue = false;
 		
@@ -65,6 +47,11 @@ class Config {
 		save.flush();
         return save.data.nodialogue;
 	}
+
+    public function getnodialogue():Bool {
+        if (save.data.nodialogue != null) return save.data.nodialogue;
+        return false;
+    }
     
     public function setnobg(?value:Bool):Bool {
 		if (save.data.nobg == null) save.data.nobg = false;
