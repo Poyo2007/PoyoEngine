@@ -27,12 +27,12 @@ class Config {
         return false;
     }
     
-    public function sethitsound(?value:Bool):Bool {
-		if (save.data.usehitsound == null) save.data.usehitsound = false;
+    public function setdownscroll(?value:Bool):Bool {
+		if (save.data.isdownscroll == null) save.data.isdownscroll = false;
 		
-		save.data.usehitsound = !save.data.usehitsound;
+		save.data.isdownscroll = !save.data.isdownscroll;
 		save.flush();
-        return save.data.usehitsound;
+    return save.data.isdownscroll;
 	}
 
     public function gethitsound():Bool {
@@ -65,6 +65,14 @@ class Config {
         if (save.data.nodialogue != null) return save.data.nodialogue;
         return false;
     }
+    
+    public function setnodialogue(?value:Bool):Bool {
+		if (save.data.nodialogue == null) save.data.nodialogue = false;
+		
+		save.data.nodialogue = !save.data.nodialogue;
+		save.flush();
+        return save.data.nodialogue;
+	}
     
     public function setnobg(?value:Bool):Bool {
 		if (save.data.nobg == null) save.data.nobg = false;
