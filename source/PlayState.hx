@@ -2434,6 +2434,10 @@ class PlayState extends MusicBeatState
 			{
 				popUpScore(note.strumTime);
 				combo += 1;
+				if (hitsounds_areenabled)
+			    {
+			      hitSound.play(true);
+			    }
 			}
 
 			if (note.noteData >= 0)
@@ -2445,28 +2449,12 @@ class PlayState extends MusicBeatState
 			{
 				case 0:
 					boyfriend.playAnim('singLEFT', true);
-					if (hitsounds_areenabled)
-			    {
-			      hitSound.play(true);
-			    }
 				case 1:
 					boyfriend.playAnim('singDOWN', true);
-					if (hitsounds_areenabled)
-			    {
-			      hitSound.play(true);
-			    }
 				case 2:
 					boyfriend.playAnim('singUP', true);
-					if (hitsounds_areenabled)
-			    {
-			      hitSound.play(true);
-			    }
 				case 3:
 					boyfriend.playAnim('singRIGHT', true);
-					if (hitsounds_areenabled)
-			    {
-			      hitSound.play(true);
-			    }
 			}
 
 			playerStrums.forEach(function(spr:FlxSprite)
