@@ -27,6 +27,19 @@ class Config {
         return false;
     }
     
+    public function sethitsound(?value:Bool):Bool {
+		if (save.data.usehitsound == null) save.data.usehitsound = false;
+		
+		save.data.usehitsound = !save.data.usehitsound;
+		save.flush();
+        return save.data.usehitsound;
+	}
+
+    public function gethitsound():Bool {
+        if (save.data.usehitsound != null) return save.data.usehitsound;
+        return false;
+    }
+
     public function setnodialogue(?value:Bool):Bool {
 		if (save.data.nodialogue == null) save.data.nodialogue = false;
 		

@@ -28,7 +28,7 @@ class OptionsMenu extends MusicBeatState
 
 	private var grpControls:FlxTypedGroup<Alphabet>;
 
-	var menuItems:Array<String> = ['controls', 'set fps', 'downscroll: off', 'bg', 'characters', 'About'];
+	var menuItems:Array<String> = ['controls', 'set fps', 'downscroll: off', 'hitsounds: off', 'bg', 'characters', 'About'];
 
 	var _pad:FlxVirtualPad;
 
@@ -57,6 +57,10 @@ class OptionsMenu extends MusicBeatState
 
 		if (config.getdownscroll()){
 			menuItems[menuItems.indexOf('downscroll: off')] = 'downscroll: on';
+		}
+		
+		if (config.gethitsound()){
+			menuItems[menuItems.indexOf('hitsounds: off')] = 'hitsounds: on';
 		}
 		
 		if (config.getnobg()){
@@ -122,6 +126,10 @@ class OptionsMenu extends MusicBeatState
 				
 				case "downscroll: on" | "downscroll: off":
 					config.setdownscroll();
+					FlxG.resetState();
+					
+				case "hitsounds: on" | "hitsounds: off":
+					config.sethitsound();
 					FlxG.resetState();
 					
 			  case "bg" | "no bg":

@@ -103,6 +103,7 @@ class PlayState extends MusicBeatState
 	var phillyCityLights:FlxTypedGroup<FlxSprite>;
 	var phillyTrain:FlxSprite;
 	var trainSound:FlxSound;
+	var hitSound:FlxSound;
 
 	var limo:FlxSprite;
 	var grpLimoDancers:FlxTypedGroup<BackgroundDancer>;
@@ -165,6 +166,7 @@ class PlayState extends MusicBeatState
 		nobg_isenabled = config.getnobg();
 		nochar_isenabled = config.getnochar();
 		nodialogue_isenabled = config.getnodialogue();
+		hitsounds_areenabled = config.gethitsound();
 
 
 		// var gameCam:FlxCamera = FlxG.camera;
@@ -1808,6 +1810,13 @@ class PlayState extends MusicBeatState
 						if (SONG.notes[Math.floor(curStep / 16)].altAnim)
 							altAnim = '-alt';
 					}
+					
+					if (hitsounds_areenabled)
+					{
+					  hitSound = new FlxSound().loadEmbedded(Paths.sound('stolenfrompsych'));
+					  
+					 FlxG.sound.list.add(hitSound);
+					}
 
 					switch (Math.abs(daNote.noteData))
 					{
@@ -2368,12 +2377,28 @@ class PlayState extends MusicBeatState
 			{
 				case 0:
 					boyfriend.playAnim('singLEFTmiss', true);
+					if (hitsounds_areenabled)
+			    {
+			      hitSound.play(true);
+			    }
 				case 1:
 					boyfriend.playAnim('singDOWNmiss', true);
+					if (hitsounds_areenabled)
+			    {
+			      hitSound.play(true);
+			    }
 				case 2:
 					boyfriend.playAnim('singUPmiss', true);
+					if (hitsounds_areenabled)
+			    {
+			      hitSound.play(true);
+			    }
 				case 3:
 					boyfriend.playAnim('singRIGHTmiss', true);
+					if (hitsounds_areenabled)
+			    {
+			      hitSound.play(true);
+			    }
 			}
 		}
 	}
