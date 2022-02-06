@@ -14,14 +14,6 @@ class Config {
     	save.bind("saveconrtol");
     }
 
-    public function setdownscroll(?value:Bool):Bool {
-		if (save.data.isdownscroll == null) save.data.isdownscroll = false;
-		
-		save.data.isdownscroll = !save.data.isdownscroll;
-		save.flush();
-        return save.data.isdownscroll;
-	}
-
     public function getdownscroll():Bool {
         if (save.data.isdownscroll != null) return save.data.isdownscroll;
         return false;
@@ -36,7 +28,7 @@ class Config {
 	}
 
     public function gethitsound():Bool {
-        if (save.data.usehitsound != null) return save.data.usehitsound;
+        if (save.data.usehitsound != n okull) return save.data.usehitsound;
         return false;
     }
     

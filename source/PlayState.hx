@@ -154,7 +154,7 @@ class PlayState extends MusicBeatState
 	var nochar_isenabled:Bool = false;
 	var nodialogue_isenabled:Bool = false;
 	var hitsounds_areenabled:Bool = false;
-	var circlenotes_areenabled:Bool = false;
+	var circlearrows_areenabled:Bool = false;
 
 	override public function create()
 	{
@@ -169,7 +169,7 @@ class PlayState extends MusicBeatState
 		nochar_isenabled = config.getnochar();
 		nodialogue_isenabled = config.getnodialogue();
 		hitsounds_areenabled = config.gethitsound();
-		circlenotes_areenabled = config.getcirclenotes();
+		circlearrows_areenabled = config.getcirclearrows();
 
 
 		// var gameCam:FlxCamera = FlxG.camera;
@@ -1297,7 +1297,7 @@ class PlayState extends MusicBeatState
 			switch (curStage)
 			{
 				case 'school' | 'schoolEvil':
-				  if (!circlenotes_areenabled)
+				  if (!circlearrows_areenabled)
 				  {
 					babyArrow.loadGraphic(Paths.image('weeb/pixelUI/arrows-pixels'), true, 17, 17);
           }
@@ -1339,7 +1339,7 @@ class PlayState extends MusicBeatState
 					}
 
 				default:
-				  if (!circlenotes_areenabled)
+				  if (!circlearrows_areenabled)
 				  {
 					babyArrow.frames = Paths.getSparrowAtlas('notes/NOTE_assets');
 				  }
