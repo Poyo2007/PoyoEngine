@@ -2378,28 +2378,12 @@ class PlayState extends MusicBeatState
 			{
 				case 0:
 					boyfriend.playAnim('singLEFTmiss', true);
-					if (hitsounds_areenabled)
-			    {
-			      hitSound.play(true);
-			    }
 				case 1:
 					boyfriend.playAnim('singDOWNmiss', true);
-					if (hitsounds_areenabled)
-			    {
-			      hitSound.play(true);
-			    }
 				case 2:
 					boyfriend.playAnim('singUPmiss', true);
-					if (hitsounds_areenabled)
-			    {
-			      hitSound.play(true);
-			    }
 				case 3:
 					boyfriend.playAnim('singRIGHTmiss', true);
-					if (hitsounds_areenabled)
-			    {
-			      hitSound.play(true);
-			    }
 			}
 		}
 	}
@@ -2461,12 +2445,28 @@ class PlayState extends MusicBeatState
 			{
 				case 0:
 					boyfriend.playAnim('singLEFT', true);
+					if (hitsounds_areenabled)
+			    {
+			      hitSound.play(true);
+			    }
 				case 1:
 					boyfriend.playAnim('singDOWN', true);
+					if (hitsounds_areenabled)
+			    {
+			      hitSound.play(true);
+			    }
 				case 2:
 					boyfriend.playAnim('singUP', true);
+					if (hitsounds_areenabled)
+			    {
+			      hitSound.play(true);
+			    }
 				case 3:
 					boyfriend.playAnim('singRIGHT', true);
+					if (hitsounds_areenabled)
+			    {
+			      hitSound.play(true);
+			    }
 			}
 
 			playerStrums.forEach(function(spr:FlxSprite)
