@@ -39,13 +39,26 @@ class Config {
         if (save.data.usehitsound != null) return save.data.usehitsound;
         return false;
     }
-
-    public function setnodialogue(?value:Bool):Bool {
-		if (save.data.nodialogue == null) save.data.nodialogue = false;
+    
+    public function sethitsound(?value:Bool):Bool {
+		if (save.data.usehitsound == null) save.data.usehitsound = false;
 		
-		save.data.nodialogue = !save.data.nodialogue;
+		save.data.usehitsound = !save.data.usehitsound;
 		save.flush();
-        return save.data.nodialogue;
+        return save.data.usehitsound;
+	}
+
+    public function getcirclearrows():Bool {
+        if (save.data.usecirclearrows != null) return save.data.usecirclearrows;
+        return false;
+    }
+
+    public function setcirclearrows(?value:Bool):Bool {
+		if (save.data.usecirclearrows == null) save.data.usecirclearrows = false;
+		
+		save.data.usecirclearrows = !save.data.usecirclearrows;
+		save.flush();
+        return save.data.usecirclearrows;
 	}
 
     public function getnodialogue():Bool {

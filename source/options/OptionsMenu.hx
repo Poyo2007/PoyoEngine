@@ -28,7 +28,7 @@ class OptionsMenu extends MusicBeatState
 
 	private var grpControls:FlxTypedGroup<Alphabet>;
 
-	var menuItems:Array<String> = ['controls', 'set fps', 'downscroll: off', 'hitsounds: off', 'bg', 'characters', 'About'];
+	var menuItems:Array<String> = ['controls', 'set fps', 'downscroll: off', 'circle notes: off', 'hitsounds: off', 'bg', 'characters', 'About'];
 
 	var _pad:FlxVirtualPad;
 
@@ -61,6 +61,10 @@ class OptionsMenu extends MusicBeatState
 		
 		if (config.gethitsound()){
 			menuItems[menuItems.indexOf('hitsounds: off')] = 'hitsounds: on';
+		}
+		
+		if (config.getcirclearrows()){
+			menuItems[menuItems.indexOf('circle notes: off')] = 'circle notes: on';
 		}
 		
 		if (config.getnobg()){
@@ -130,6 +134,10 @@ class OptionsMenu extends MusicBeatState
 					
 				case "hitsounds: on" | "hitsounds: off":
 					config.sethitsound();
+					FlxG.resetState();
+					
+				case "circle notes: on" | "circle notes: off":
+					config.setcirclenotes();
 					FlxG.resetState();
 					
 			  case "bg" | "no bg":
