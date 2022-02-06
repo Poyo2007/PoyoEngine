@@ -153,6 +153,7 @@ class PlayState extends MusicBeatState
 	var nobg_isenabled:Bool = false;
 	var nochar_isenabled:Bool = false;
 	var nodialogue_isenabled:Bool = false;
+	var hitsounds_areenabled:Bool = false;
 
 	override public function create()
 	{
