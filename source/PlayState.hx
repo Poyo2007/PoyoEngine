@@ -836,10 +836,6 @@ class PlayState extends MusicBeatState
 			{
 				strumLineNotes.visible = false;
 			}
-
-			if (midscroll_isenabled){
-				strumLineNotes.x -= 275;
-				}
 		add(strumLineNotes);
 
 		playerStrums = new FlxTypedGroup<FlxSprite>();
@@ -1818,7 +1814,14 @@ class PlayState extends MusicBeatState
 					daNote.y = (strumLine.y - (Conductor.songPosition - daNote.strumTime) * (0.45 * FlxMath.roundDecimal(SONG.speed, 2)));
 				}else {
 					daNote.y = (strumLine.y - (Conductor.songPosition - daNote.strumTime) * (-0.45 * FlxMath.roundDecimal(SONG.speed, 2)));
+      if (midscroll_isenabled && player == 0)
+			{
+				daNote.visible = false;
+			}
 
+			if (midscroll_isenabled){
+				daNote.x -= 275;
+				}
 				}
 				
 				// i am so fucking sorry for this if condition
