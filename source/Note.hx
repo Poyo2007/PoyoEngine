@@ -50,11 +50,23 @@ class Note extends FlxSprite
 		this.noteData = noteData;
 
 		var daStage:String = PlayState.curStage;
+		
+		var config:Config = new Config();
+	  var circles_isenabled:Bool = false;
+	  
+	  circles_isenabled = config.getcircles();
 
 		switch (daStage)
 		{
 			case 'school' | 'schoolEvil':
+			if (!circles_isenabled)
+			{
 				loadGraphic(Paths.image('weeb/pixelUI/arrows-pixels'), true, 17, 17);
+			}
+			else
+      {
+        loadGraphic(Paths.image('weeb/pixelUI/circles-pixels'), true, 17, 17);
+      }
 
 				animation.add('greenScroll', [6]);
 				animation.add('redScroll', [7]);
@@ -80,7 +92,14 @@ class Note extends FlxSprite
 				updateHitbox();
 
 			default:
+			if (!circles_isenabled)
+			{
 				frames = Paths.getSparrowAtlas('NOTE_assets');
+			}
+			else
+      {
+        frames = Paths.getSparrowAtlas('circleNOTE_assets');
+      }
 
 				animation.addByPrefix('greenScroll', 'green0');
 				animation.addByPrefix('redScroll', 'red0');
@@ -175,7 +194,7 @@ class Note extends FlxSprite
 		{
 			// The * 0.5 is so that it's easier to hit them too late, instead of too early
 			if (strumTime > Conductor.songPosition - Conductor.safeZoneOffset
-				&& strumTime < Conductor.songPosition + (Conductor.safeZoneOffset * 0.7))
+				&& strumTime < Conductor.songPosition + (Conductor.safeZoneOffset * 0.5))
 				canBeHit = true;
 			else
 				canBeHit = false;
