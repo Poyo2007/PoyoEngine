@@ -28,7 +28,7 @@ class OptionsMenu extends MusicBeatState
 
 	private var grpControls:FlxTypedGroup<Alphabet>;
 
-	var menuItems:Array<String> = ['controls', 'set fps', 'downscroll: off', 'middlescroll: off', 'circle notes: off', 'hitsounds: off', 'bg', 'characters', 'About'];
+	var menuItems:Array<String> = ['controls', 'set fps', 'downscroll: off', 'circle notes: off', 'hitsounds: off', 'bg', 'characters', 'About'];
 
 	var _pad:FlxVirtualPad;
 
@@ -59,9 +59,9 @@ class OptionsMenu extends MusicBeatState
 			menuItems[menuItems.indexOf('downscroll: off')] = 'downscroll: on';
 		}
 		
-		if (config.getmidscroll()){
+		/*if (config.getmidscroll()){
 			menuItems[menuItems.indexOf('middlescroll: off')] = 'middlescroll: on';
-		}
+		}*/
 		
 		if (config.getcircles()){
 			menuItems[menuItems.indexOf('circle notes: off')] = 'circle notes: on';
@@ -134,10 +134,6 @@ class OptionsMenu extends MusicBeatState
 				
 				case "downscroll: on" | "downscroll: off":
 					config.setdownscroll();
-					FlxG.resetState();
-					
-				case "middlescroll: on" | "middlescroll: off":
-					config.setmidscroll();
 					FlxG.resetState();
 					
 				case "circle notes: on" | "circle notes: off":

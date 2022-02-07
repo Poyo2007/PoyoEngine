@@ -2495,7 +2495,7 @@ class PlayState extends MusicBeatState
 			{
 				popUpScore(note.strumTime);
 				combo += 1;
-				total += 1
+				total += 1;
 				if (hitsounds_areenabled)
 			    {
 			      hitSound.play(true);
