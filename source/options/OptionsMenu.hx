@@ -141,7 +141,7 @@ class OptionsMenu extends MusicBeatState
 					FlxG.resetState();
 					
 				case "circle notes: on" | "circle notes: off":
-					config.setmidscroll();
+					config.setcircles();
 					FlxG.resetState();
 					
 				case "hitsounds: on" | "hitsounds: off":

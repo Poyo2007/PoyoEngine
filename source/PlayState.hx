@@ -169,6 +169,7 @@ class PlayState extends MusicBeatState
 		circles_isenabled = config.getcircles();
 		nobg_isenabled = config.getnobg();
 		nochar_isenabled = config.getnochar();
+		midscroll_isenabled = config.getmidscroll();
 		nodialogue_isenabled = config.getnodialogue();
 		hitsounds_areenabled = config.gethitsound();
 
