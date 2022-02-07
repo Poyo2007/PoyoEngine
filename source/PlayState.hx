@@ -906,10 +906,10 @@ class PlayState extends MusicBeatState
 		scoreTxt.scrollFactor.set();
 		add(scoreTxt);
 		
-		scoreTxt = new FlxText(45, 495, "", 20);
-		scoreTxt.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, RIGHT);
-		scoreTxt.scrollFactor.set();
-		add(scoreTxt);
+		noteTxt = new FlxText(45, 495, "", 20);
+		noteTxt.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, RIGHT);
+		noteTxt.scrollFactor.set();
+		add(noteTxt);
 
 		iconP1 = new HealthIcon(SONG.player1, true);
 		iconP1.y = healthBar.y - (iconP1.height / 2);
