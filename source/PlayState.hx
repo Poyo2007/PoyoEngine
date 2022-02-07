@@ -83,6 +83,13 @@ class PlayState extends MusicBeatState
 	private var gfSpeed:Int = 1;
 	private var health:Float = 1;
 	private var combo:Int = 0;
+	
+	private var misses:Int = 0;
+	private var total:Int = 0;
+	private var sicks:Int = 0;
+	private var goods:Int = 0;
+	private var bads:Int = 0;
+	private var shits:Int = 0;
 
 	private var healthBarBG:FlxSprite;
 	private var healthBar:FlxBar;
@@ -119,6 +126,7 @@ class PlayState extends MusicBeatState
 	var talking:Bool = true;
 	var songScore:Int = 0;
 	var scoreTxt:FlxText;
+	var noteTxt:FlxText;
 
 	public static var campaignScore:Int = 0;
 
@@ -832,10 +840,10 @@ class PlayState extends MusicBeatState
 		strumLine.scrollFactor.set();
 
 		strumLineNotes = new FlxTypedGroup<FlxSprite>();
-		if (midscroll_isenabled && player == 0)
+		/*if (midscroll_isenabled && player == 0)
 			{
 				strumLineNotes.visible = false;
-			}
+			}*/
 		add(strumLineNotes);
 
 		playerStrums = new FlxTypedGroup<FlxSprite>();
@@ -893,7 +901,12 @@ class PlayState extends MusicBeatState
 		// healthBar
 		add(healthBar);
 
-		scoreTxt = new FlxText(healthBarBG.x + healthBarBG.width - 190, healthBarBG.y + 30, 0, "", 20);
+		scoreTxt = new FlxText(healthBarBG.x, healthBarBG.y + 30, 0, "", 20);
+		scoreTxt.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, RIGHT);
+		scoreTxt.scrollFactor.set();
+		add(scoreTxt);
+		
+		scoreTxt = new FlxText(45, 495, "", 20);
 		scoreTxt.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, RIGHT);
 		scoreTxt.scrollFactor.set();
 		add(scoreTxt);
@@ -913,6 +926,7 @@ class PlayState extends MusicBeatState
 		iconP1.cameras = [camHUD];
 		iconP2.cameras = [camHUD];
 		scoreTxt.cameras = [camHUD];
+		noteTxt.cameras = [camHUD];
 		doof.cameras = [camHUD];
 
 		// if (SONG.song == 'South')
@@ -1403,14 +1417,14 @@ class PlayState extends MusicBeatState
 				playerStrums.add(babyArrow);
 			}
 			
-			if (midscroll_isenabled && player == 0)
+			/*if (midscroll_isenabled && player == 0)
 			{
 				babyArrow.visible = false;
 			}
 
 			if (midscroll_isenabled){
 				babyArrow.x -= 275;
-				}
+				}*/
 			babyArrow.animation.play('static');
 			babyArrow.x += 50;
 			babyArrow.x += ((FlxG.width / 2) * player);
@@ -1547,6 +1561,8 @@ class PlayState extends MusicBeatState
 		super.update(elapsed);
 
 		scoreTxt.text = "Score:" + songScore;
+		
+		noteTxt.text = "Sicks:" + sicks + "| Goods:" + goods + "| Bads" + bads + "| Shits" + shits + "| Notes in Total:" + total;
 
 		#if android
 		var enterPressed = FlxG.keys.justPressed.ENTER || FlxG.android.justReleased.BACK;
@@ -1814,10 +1830,10 @@ class PlayState extends MusicBeatState
 					daNote.y = (strumLine.y - (Conductor.songPosition - daNote.strumTime) * (0.45 * FlxMath.roundDecimal(SONG.speed, 2)));
 				}else {
 					daNote.y = (strumLine.y - (Conductor.songPosition - daNote.strumTime) * (-0.45 * FlxMath.roundDecimal(SONG.speed, 2)));
-      if (midscroll_isenabled && player == 0)
+      /*if (midscroll_isenabled && player == 0)
 			{
 				daNote.visible = false;
-			}
+			}*/
 
 			if (midscroll_isenabled){
 				daNote.x -= 275;
@@ -1889,6 +1905,7 @@ class PlayState extends MusicBeatState
 						health -= 0.0475;
 						vocals.volume = 0;
 						combo = 0;
+						misses += 0;
 					}
 
 					daNote.active = false;
@@ -2016,18 +2033,25 @@ class PlayState extends MusicBeatState
 		if (noteDiff > Conductor.safeZoneOffset * 0.9)
 		{
 			daRating = 'shit';
+			shits += 1;
 			score = 50;
 		}
 		else if (noteDiff > Conductor.safeZoneOffset * 0.75)
 		{
 			daRating = 'bad';
+			bads += 1;
 			score = 100;
 		}
 		else if (noteDiff > Conductor.safeZoneOffset * 0.2)
 		{
 			daRating = 'good';
+			goods += 1;
 			score = 200;
 		}
+		else
+    {
+      sicks += 1;
+    }
 
 		songScore += score;
 
@@ -2471,6 +2495,7 @@ class PlayState extends MusicBeatState
 			{
 				popUpScore(note.strumTime);
 				combo += 1;
+				total += 1
 				if (hitsounds_areenabled)
 			    {
 			      hitSound.play(true);
