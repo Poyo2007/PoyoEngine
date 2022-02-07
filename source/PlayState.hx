@@ -1811,6 +1811,16 @@ class PlayState extends MusicBeatState
 					daNote.y = (strumLine.y - (Conductor.songPosition - daNote.strumTime) * (0.45 * FlxMath.roundDecimal(SONG.speed, 2)));
 				}else {
 					daNote.y = (strumLine.y - (Conductor.songPosition - daNote.strumTime) * (-0.45 * FlxMath.roundDecimal(SONG.speed, 2)));
+					
+		  if (midscroll_isenabled && player == 0)
+			{
+				daNote.visible = false;
+			}
+
+			if (midscroll_isenabled)
+			{
+				daNote.x -= 275;
+			}
 
 				}
 				
