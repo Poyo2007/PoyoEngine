@@ -832,6 +832,14 @@ class PlayState extends MusicBeatState
 		strumLine.scrollFactor.set();
 
 		strumLineNotes = new FlxTypedGroup<FlxSprite>();
+		if (midscroll_isenabled && player == 0)
+			{
+				strumLineNotes.visible = false;
+			}
+
+			if (midscroll_isenabled){
+				strumLineNotes.x -= 275;
+				}
 		add(strumLineNotes);
 
 		playerStrums = new FlxTypedGroup<FlxSprite>();
@@ -1406,8 +1414,7 @@ class PlayState extends MusicBeatState
 
 			if (midscroll_isenabled){
 				babyArrow.x -= 275;
-				strumLineNotes.forEach(s -> if (strumLineNotes.members.indexOf(s) < 4) s.visible = false);
-			}
+				}
 			babyArrow.animation.play('static');
 			babyArrow.x += 50;
 			babyArrow.x += ((FlxG.width / 2) * player);
