@@ -1404,9 +1404,9 @@ class PlayState extends MusicBeatState
 				babyArrow.visible = false;
 			}
 
-			if (midscroll_isenabled)
-			{
+			if (midscroll_isenabled){
 				babyArrow.x -= 275;
+				strumLineNotes.forEach(s -> if (strumLineNotes.members.indexOf(s) < 4) s.visible = false);
 			}
 			babyArrow.animation.play('static');
 			babyArrow.x += 50;
@@ -1811,16 +1811,6 @@ class PlayState extends MusicBeatState
 					daNote.y = (strumLine.y - (Conductor.songPosition - daNote.strumTime) * (0.45 * FlxMath.roundDecimal(SONG.speed, 2)));
 				}else {
 					daNote.y = (strumLine.y - (Conductor.songPosition - daNote.strumTime) * (-0.45 * FlxMath.roundDecimal(SONG.speed, 2)));
-					
-		  if (midscroll_isenabled && player == 0)
-			{
-				daNote.visible = false;
-			}
-
-			if (midscroll_isenabled)
-			{
-				daNote.x -= 275;
-			}
 
 				}
 				
