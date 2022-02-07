@@ -2512,7 +2512,6 @@ class PlayState extends MusicBeatState
 					}
 					else // regular notes?
 					{	
-						else
 							noteCheck(controlArray, daNote);
 					}
 					/* 
