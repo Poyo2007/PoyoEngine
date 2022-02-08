@@ -630,7 +630,7 @@ class PlayState extends MusicBeatState
 		                  {
 		                  add(stageFront);
 		                  }
-		                  else if ('remove');
+		                  else if ('remove')
                       {
                       remove(stageFront);
                       }
@@ -645,7 +645,7 @@ class PlayState extends MusicBeatState
 		                  {
 		                  add(stageCurtains);
 		                  }
-		                  else if ('remove');
+		                  else if ('remove')
                       {
                       remove(stageCurtains);
                       }
