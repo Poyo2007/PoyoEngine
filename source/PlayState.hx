@@ -603,7 +603,7 @@ class PlayState extends MusicBeatState
 		var removeoraddSpooky:String = 'add';
 		var removeoraddPhilly:String = 'add';
 
-		function addStage();
+		function addStage():Void
 		{
 		                  defaultCamZoom = 0.9;
 		                  curStage = 'stage';
@@ -651,7 +651,7 @@ class PlayState extends MusicBeatState
                       }
 		          }
 		          
-		function addSpooky();
+		function addSpooky():Void
 		{
                                 curStage = 'spooky';
 	                          halloweenLevel = true;
@@ -676,7 +676,7 @@ class PlayState extends MusicBeatState
 		                  isHalloween = true;
 		          }
 		          
-		function addPhilly();
+		function addPhilly():Void
 		{
 		                  curStage = 'philly';
 
