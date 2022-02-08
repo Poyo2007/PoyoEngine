@@ -615,7 +615,7 @@ class PlayState extends MusicBeatState
 		                  {
 		                  add(bg);
 		                  }
-		                  else if ('remove');
+		                  else if (removeoraddStage == 'remove')
                       {
                       remove(bg);
                       }
