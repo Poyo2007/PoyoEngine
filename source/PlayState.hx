@@ -132,14 +132,7 @@ class PlayState extends MusicBeatState
 
 	var defaultCamZoom:Float = 1.05;
 	
-	var removeoraddStage:Bool = true;
-		var removeoraddSpooky:Bool = true;
-		var removeoraddPhilly:Bool = true;
-		var removeoraddLimo:Bool = true;
-		var removeoraddMall:Bool = true;
-		var removeoraddHateSim:Bool = true;
-		var removeoraddEvil:Bool = true;
-		var removeoradd:Bool = true;
+	
 
 	// how big to stretch the pixel art assets
 	public static var daPixelZoom:Float = 6;
@@ -517,14 +510,16 @@ class PlayState extends MusicBeatState
 
 		scoreTxt = new FlxText(0, 0, "", 20);
 		scoreTxt.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		scoreTxt.alignment = FlxTextAlign.CENTER;
 		scoreTxt.scrollFactor.set();
-		scoreTxt.y = healthBarBG.y + 50;
+		scoreTxt.y = healthBarBG.y + 30;
 		scoreTxt.screenCenter(X);
 		add(scoreTxt);
 		
 		noteTxt = new FlxText(45, 495, "", 20);
 		noteTxt.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-		noteTxt.y = healthBarBG.y + 60;
+		noteTxt.alignment = FlxTextAlign.CENTER;
+		noteTxt.y = healthBarBG.y + 45;
 		noteTxt.scrollFactor.set();
 		noteTxt.screenCenter(X);
 		add(noteTxt);
@@ -1146,6 +1141,15 @@ class PlayState extends MusicBeatState
 	var startedCountdown:Bool = false;
 	var canPause:Bool = true;
 	
+	  var removeoraddStage:Bool = true;
+		var removeoraddSpooky:Bool = true;
+		var removeoraddPhilly:Bool = true;
+		var removeoraddLimo:Bool = true;
+		var removeoraddMall:Bool = true;
+		var removeoraddSchool:Bool = true;
+		var removeoraddSchoolEvil:Bool = true;
+		//var removeoradd:Bool = true;
+	
 	function addStage():Void
 		{
 		                  defaultCamZoom = 0.9;
@@ -1457,6 +1461,194 @@ class PlayState extends MusicBeatState
 		                  add(santa);
 		                  }
 		          }
+		          
+		function addSchool():Void
+    {
+			curStage = 'school';
+
+			// defaultCamZoom = 0.9;
+
+			var bgSky = new FlxSprite().loadGraphic('assets/images/weeb/weebSky.png');
+			bgSky.scrollFactor.set(0.1, 0.1);
+			if (removeoraddSchool == true)
+			{
+			add(bgSky);
+			}
+			else if (removeoraddSchool == false)
+      {
+      remove(bgSky);
+      }
+
+			var repositionShit = -200;
+
+			var bgSchool:FlxSprite = new FlxSprite(repositionShit, 0).loadGraphic('assets/images/weeb/weebSchool.png');
+			bgSchool.scrollFactor.set(0.6, 0.90);
+			if (removeoraddSchool == true)
+			{
+			add(bgSchool);
+			}
+			else if (removeoraddSchool == false)
+      {
+      remove(bgSchool);
+      }
+
+			var bgStreet:FlxSprite = new FlxSprite(repositionShit).loadGraphic('assets/images/weeb/weebStreet.png');
+			bgStreet.scrollFactor.set(0.95, 0.95);
+			if (removeoraddSchool == true)
+			{
+			add(bgStreet);
+			}
+			else if (removeoraddSchool == false)
+			{
+			remove(bgStreet);
+      }
+      
+
+			var fgTrees:FlxSprite = new FlxSprite(repositionShit + 170, 130).loadGraphic('assets/images/weeb/weebTreesBack.png');
+			fgTrees.scrollFactor.set(0.9, 0.9);
+			if (removeoraddSchool == true)
+			{
+			add(fgTrees);
+			}
+			else if (removeoraddSchool == false)
+			{
+			remove(fgTrees);
+      }
+
+			var bgTrees:FlxSprite = new FlxSprite(repositionShit - 380, -800);
+			var treetex = FlxAtlasFrames.fromSpriteSheetPacker('assets/images/weeb/weebTrees.png', 'assets/images/weeb/weebTrees.txt');
+			bgTrees.frames = treetex;
+			bgTrees.animation.add('treeLoop', [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18], 12);
+			bgTrees.animation.play('treeLoop');
+			bgTrees.scrollFactor.set(0.85, 0.85);
+			if (removeoraddSchool == true)
+			{
+			add(bgTrees);
+			}
+			else if (removeoraddSchool == false)
+			{
+			remove(bgTrees);
+      }
+
+			var treeLeaves:FlxSprite = new FlxSprite(repositionShit, -40);
+			treeLeaves.frames = FlxAtlasFrames.fromSparrow('assets/images/weeb/petals.png', 'assets/images/weeb/petals.xml');
+			treeLeaves.animation.addByPrefix('leaves', 'PETALS ALL', 24, true);
+			treeLeaves.animation.play('leaves');
+			treeLeaves.scrollFactor.set(0.85, 0.85);
+			if (removeoraddSchool == true)
+			{
+			add(treeLeaves);
+			}
+			else if (removeoraddSchool == false)
+			{
+			remove(treeLeaves);
+      }
+
+			var widShit = Std.int(bgSky.width * 6);
+
+			bgSky.setGraphicSize(widShit);
+			bgSchool.setGraphicSize(widShit);
+			bgStreet.setGraphicSize(widShit);
+			bgTrees.setGraphicSize(Std.int(widShit * 1.4));
+			fgTrees.setGraphicSize(Std.int(widShit * 0.8));
+			treeLeaves.setGraphicSize(widShit);
+
+			fgTrees.updateHitbox();
+			bgSky.updateHitbox();
+			bgSchool.updateHitbox();
+			bgStreet.updateHitbox();
+			bgTrees.updateHitbox();
+			treeLeaves.updateHitbox();
+
+			bgGirls = new BackgroundGirls(-100, 190);
+			bgGirls.scrollFactor.set(0.9, 0.9);
+
+			if (SONG.song.toLowerCase() == 'roses')
+			{
+				bgGirls.getScared();
+			}
+
+			bgGirls.setGraphicSize(Std.int(bgGirls.width * daPixelZoom));
+			bgGirls.updateHitbox();
+			if (removeoraddSchool == true)
+			{
+			add(bgGirls);
+			}
+			else if (removeoraddSchool == false)
+			{
+			remove(bgGirls);
+      }
+		}
+		          
+		function addSchoolEvil():Void
+    {
+			curStage = 'schoolEvil';
+
+			var waveEffectBG = new FlxWaveEffect(FlxWaveMode.ALL, 2, -1, 3, 2);
+			var waveEffectFG = new FlxWaveEffect(FlxWaveMode.ALL, 2, -1, 5, 2);
+
+			var posX = 400;
+			var posY = 200;
+
+			var bg:FlxSprite = new FlxSprite(posX, posY);
+			bg.frames = FlxAtlasFrames.fromSparrow('assets/images/weeb/animatedEvilSchool.png', 'assets/images/weeb/animatedEvilSchool.xml');
+			bg.animation.addByPrefix('idle', 'background 2', 24);
+			bg.animation.play('idle');
+			bg.scrollFactor.set(0.8, 0.9);
+			bg.scale.set(6, 6);
+			if (removeoraddSchoolEvil == true)
+			{
+			add(bg);
+			}
+			else if (removeoraddSchoolEvil == false)
+			{
+			remove(bg);
+			}
+
+			/* 
+				var bg:FlxSprite = new FlxSprite(posX, posY).loadGraphic('assets/images/weeb/evilSchoolBG.png');
+				bg.scale.set(6, 6);
+				// bg.setGraphicSize(Std.int(bg.width * 6));
+				// bg.updateHitbox();
+				add(bg);
+
+				var fg:FlxSprite = new FlxSprite(posX, posY).loadGraphic('assets/images/weeb/evilSchoolFG.png');
+				fg.scale.set(6, 6);
+				// fg.setGraphicSize(Std.int(fg.width * 6));
+				// fg.updateHitbox();
+				add(fg);
+
+				wiggleShit.effectType = WiggleEffectType.DREAMY;
+				wiggleShit.waveAmplitude = 0.01;
+				wiggleShit.waveFrequency = 60;
+				wiggleShit.waveSpeed = 0.8;
+			 */
+
+			// bg.shader = wiggleShit.shader;
+			// fg.shader = wiggleShit.shader;
+
+			/* 
+				var waveSprite = new FlxEffectSprite(bg, [waveEffectBG]);
+				var waveSpriteFG = new FlxEffectSprite(fg, [waveEffectFG]);
+
+				// Using scale since setGraphicSize() doesnt work???
+				waveSprite.scale.set(6, 6);
+				waveSpriteFG.scale.set(6, 6);
+				waveSprite.setPosition(posX, posY);
+				waveSpriteFG.setPosition(posX, posY);
+
+				waveSprite.scrollFactor.set(0.7, 0.8);
+				waveSpriteFG.scrollFactor.set(0.9, 0.8);
+
+				// waveSprite.setGraphicSize(Std.int(waveSprite.width * 6));
+				// waveSprite.updateHitbox();
+				// waveSpriteFG.setGraphicSize(Std.int(fg.width * 6));
+				// waveSpriteFG.updateHitbox();
+
+				add(waveSprite);
+				add(waveSpriteFG);
+			 */
+		}
 
 	override public function update(elapsed:Float)
 	{
@@ -1492,7 +1684,7 @@ class PlayState extends MusicBeatState
 
 		scoreTxt.text = "Score: " + songScore + " | Song: " + curSong;
 		
-		noteTxt.text = "Sicks: " + sicks + "| Goods: " + goods + "| Bads: " + bads + "| Shits: " + shits + "| Misses" + misses + "| Notes in Total:" + total;
+		noteTxt.text = "Sicks: " + sicks + "| Goods: " + goods + "| Bads: " + bads + "| Shits: " + shits + "| Misses: " + misses + "| Notes in Total: " + total;
 
 		#if android
 		var enterPressed = FlxG.keys.justPressed.ENTER || FlxG.android.justReleased.BACK;
@@ -1835,7 +2027,7 @@ class PlayState extends MusicBeatState
 						health -= 0.0475;
 						vocals.volume = 0;
 						combo = 0;
-						misses += 0;
+						misses += 1;
 					}
 
 					daNote.active = false;
