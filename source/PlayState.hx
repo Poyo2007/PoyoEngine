@@ -809,7 +809,7 @@ class PlayState extends MusicBeatState
 		                  for (i in 0...5)
 		                  {
 		                          var dancer:BackgroundDancer = new BackgroundDancer((370 * i) + 130, bgLimo.y - 400);
-		                          dancer.scrollFactor.set(0.4, 0.4)
+		                          dancer.scrollFactor.set(0.4, 0.4);
 		                          if (removeoraddLimo == 'add')
 		                          {
 		                          grpLimoDancers.add(dancer);
