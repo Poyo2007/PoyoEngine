@@ -387,7 +387,7 @@ class StoryMenuState extends MusicBeatState
 			  BSideDiffic = new FlxText(sprDifficulty.x, sprDifficulty.y);
 		    BSideDiffic.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 	      BSideDiffic.scrollFactor.set();
-	      BSideDiffic.text = "B-Sides"
+	      BSideDiffic.text = "B-Sides";
 		    add(BSideDiffic);
 			  
 		}
