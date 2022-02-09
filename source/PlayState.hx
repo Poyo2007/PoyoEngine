@@ -743,7 +743,7 @@ class PlayState extends MusicBeatState
 		                  }
 
 	                          phillyTrain = new FlxSprite(2000, 360).loadGraphic(Paths.image('philly/train'));
-	                    if (removeoraddPhilly == 'add');
+	                    if (removeoraddPhilly == 'add')
 	                    {
 		                  add(phillyTrain);
 	                    }
@@ -963,17 +963,19 @@ class PlayState extends MusicBeatState
 		// healthBar
 		add(healthBar);
 
-		scoreTxt = new FlxText(healthBarBG.y + 50, 0, "", 20);
-		scoreTxt.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, RIGHT);
+		scoreTxt = new FlxText(0, 0, "", 20);
+		scoreTxt.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
 		scoreTxt.scrollFactor.set();
+		scoreTxt.y = healthBarBG.y + 50;
 		scoreTxt.screenCenter(X);
 		add(scoreTxt);
 		
 		noteTxt = new FlxText(45, 495, "", 20);
-		noteTxt.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, RIGHT);
+		noteTxt.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+		noteTxt.y = healthBarBG.y + 60;
 		noteTxt.scrollFactor.set();
 		noteTxt.screenCenter(X);
-		add(scoreTxt);
+		add(noteTxt);
 
 		iconP1 = new HealthIcon(SONG.player1, true);
 		iconP1.y = healthBar.y - (iconP1.height / 2);
