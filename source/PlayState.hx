@@ -276,35 +276,35 @@ class PlayState extends MusicBeatState
                         {
                         if (!nobg_isenabled)  
                         {
-                        addSpooky();
+                        addSpooky;
                         }
                         }
 		          case 'pico' | 'blammed' | 'philly':
 		          {
 		            if (!nobg_isenabled)
 		            {
-              addPhilly();
+              addPhilly;
 		            }
 		          }
 		          case 'milf' | 'satin-panties' | 'high':
               {
               if (!nobg_isenabled)
               {
-              addLimo();
+              addLimo;
               }
               }
 		          case 'cocoa' | 'eggnog':
 		          {
 		          if (!nobg_isenabled)
 		          {
-		          addMall();
+		          addMall;
 		          }
 		          }
 		          default:
 		          {
 		          if (!nobg_isenabled)
 		          {
-		          addStage();
+		          addStage;
 		          }
 		          }
 		}
