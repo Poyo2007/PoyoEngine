@@ -274,32 +274,51 @@ class PlayState extends MusicBeatState
 		{
                         case 'spookeez' | 'monster' | 'south':
                         {
+                        if (!nobg_isenabled)  
+                        {
                         addSpooky();
+                        }
                         }
 		          case 'pico' | 'blammed' | 'philly':
 		          {
+		            if (!nobg_isenabled)
+		            {
               addPhilly();
+		            }
 		          }
 		          case 'milf' | 'satin-panties' | 'high':
               {
+              if (!nobg_isenabled)
+              {
               addLimo();
+              }
               }
 		          case 'cocoa' | 'eggnog':
 		          {
+		          if (!nobg_isenabled)
+		          {
 		          addMall();
+		          }
+		          }
+		          default:
+		          {
+		          if (!nobg_isenabled)
+		          {
+		          addStage();
+		          }
 		          }
 		}
 
 		var gfVersion:String = 'gf';
 		
-		var removeoraddStage:String = 'add';
-		var removeoraddSpooky:String = 'add';
-		var removeoraddPhilly:String = 'add';
-		var removeoraddLimo:String = 'add';
-		var removeoraddMall:String = 'add';
-		var removeoraddHateSim:String = 'add';
-		var removeoraddEvil:String = 'add';
-		//var removeoradd:String = 'add';
+		var removeoraddStage:Bool = true;
+		var removeoraddSpooky:Bool = true;
+		var removeoraddPhilly:Bool = true;
+		var removeoraddLimo:Bool = true;
+		var removeoraddMall:Bool = true;
+		var removeoraddHateSim:Bool = true;
+		var removeoraddEvil:Bool = true;
+		var removeoradd:Bool = true;
 
 		function addStage():Void
 		{
@@ -309,11 +328,11 @@ class PlayState extends MusicBeatState
 		                  bg.antialiasing = true;
 		                  bg.scrollFactor.set(0.9, 0.9);
 		                  bg.active = false;
-		                  if (removeoraddStage == 'add')
+		                  if (removeoraddStage == true)
 		                  {
 		                  add(bg);
 		                  }
-		                  else if (removeoraddStage == 'remove')
+		                  else if (removeoraddStage == false)
                       {
                       remove(bg);
                       }
@@ -324,11 +343,11 @@ class PlayState extends MusicBeatState
 		                  stageFront.antialiasing = true;
 		                  stageFront.scrollFactor.set(0.9, 0.9);
 		                  stageFront.active = false;
-		                  if (removeoraddStage == 'add')
+		                  if (removeoraddStage == true)
 		                  {
 		                  add(stageFront);
 		                  }
-		                  else if ('remove')
+		                  else if (removeoraddStage == false)
                       {
                       remove(stageFront);
                       }
@@ -339,11 +358,11 @@ class PlayState extends MusicBeatState
 		                  stageCurtains.antialiasing = true;
 		                  stageCurtains.scrollFactor.set(1.3, 1.3);
 		                  stageCurtains.active = false;
-		                  if (removeoraddStage == 'add')
+		                  if (removeoraddStage == true)
 		                  {
 		                  add(stageCurtains);
 		                  }
-		                  else if ('remove')
+		                  else if (removeoraddStage == false)
                       {
                       remove(stageCurtains);
                       }
@@ -362,11 +381,11 @@ class PlayState extends MusicBeatState
 	                          halloweenBG.animation.addByPrefix('lightning', 'halloweem bg lightning strike', 24, false);
 	                          halloweenBG.animation.play('idle');
 	                          halloweenBG.antialiasing = true;
-	                          if (removeoraddSpooky == 'add')
+	                          if (removeoraddSpooky == true)
 	                          {
 	                          add(halloweenBG);
 	                          }
-	                          else if (removeoraddSpooky = 'remove')
+	                          else if (removeoraddSpooky = false)
 	                          {
 	                          add(halloweenBG);
 	                          }
@@ -380,11 +399,11 @@ class PlayState extends MusicBeatState
 
 		                  var bg:FlxSprite = new FlxSprite(-100).loadGraphic(Paths.image('philly/sky'));
 		                  bg.scrollFactor.set(0.1, 0.1);
-		                  if (removeoraddPhilly == 'add')
+		                  if (removeoraddPhilly == true)
 		                  {
 		                  add(bg);
 		                  }
-		                  else if (removeoraddPhilly == 'remove')
+		                  else if (removeoraddPhilly == false)
 		                  {
 		                  remove(bg);
 		                  }
@@ -393,21 +412,21 @@ class PlayState extends MusicBeatState
 		                  city.scrollFactor.set(0.3, 0.3);
 		                  city.setGraphicSize(Std.int(city.width * 0.85));
 		                  city.updateHitbox();
-		                  if (removeoraddPhilly == 'add')
+		                  if (removeoraddPhilly == true)
 		                  {
 		                  add(city);
 		                  }
-		                  else if (removeoraddPhilly == 'remove')
+		                  else if (removeoraddPhilly == false)
 		                  {
 		                  remove(city);
 		                  }
 
 		                  phillyCityLights = new FlxTypedGroup<FlxSprite>();
-		                  if (removeoraddPhilly == 'add')
+		                  if (removeoraddPhilly == true)
 		                  {
 		                  add(phillyCityLights);
 		                  }
-		                  else if (removeoraddPhilly == 'remove')
+		                  else if (removeoraddPhilly == false)
 		                  {
 		                  remove(phillyCityLights);
 		                  }
@@ -420,32 +439,32 @@ class PlayState extends MusicBeatState
 		                          light.setGraphicSize(Std.int(light.width * 0.85));
 		                          light.updateHitbox();
 		                          light.antialiasing = true;
-		                          if (removeoraddPhilly == 'add')
+		                          if (removeoraddPhilly == true)
 		                          {
 		                          phillyCityLights.add(light);
 		                          }
-		                          else if (removeoraddPhilly == 'remove')
+		                          else if (removeoraddPhilly == false)
 		                          {
 		                          phillyCityLights.remove(light);
 		                          }
 		                  }
 
 		                  var streetBehind:FlxSprite = new FlxSprite(-40, 50).loadGraphic(Paths.image('philly/behindTrain'));
-		                  if (removeoraddPhilly == 'add')
+		                  if (removeoraddPhilly == true)
 		                  {
 		                  add(streetBehind);
 		                  }
-		                  else if (removeoraddPhilly == 'remove')
+		                  else if (removeoraddPhilly == false)
 		                  {
 		                  remove(streetBehind);
 		                  }
 
 	                          phillyTrain = new FlxSprite(2000, 360).loadGraphic(Paths.image('philly/train'));
-	                    if (removeoraddPhilly == 'add')
+	                    if (removeoraddPhilly == true)
 	                    {
 		                  add(phillyTrain);
 	                    }
-	                    else if (removeoraddPhilly == 'remove')
+	                    else if (removeoraddPhilly == false)
 	                    {
 	                    remove(phillyTrain);
 	                    }
@@ -456,11 +475,11 @@ class PlayState extends MusicBeatState
 		                  // var cityLights:FlxSprite = new FlxSprite().loadGraphic(AssetPaths.win0.png);
 
 		                  var street:FlxSprite = new FlxSprite(-40, streetBehind.y).loadGraphic(Paths.image('philly/street'));
-		                  if (removeoraddPhilly == 'add')
+		                  if (removeoraddPhilly == true)
 		                  {
 	                          add(street);
 		                  }
-		                  else if (removeoraddPhilly == 'remove')
+		                  else if (removeoraddPhilly == false)
 		                  {
 		                  remove(street);
 		                  }
@@ -473,11 +492,11 @@ class PlayState extends MusicBeatState
 
 		                  var skyBG:FlxSprite = new FlxSprite(-120, -50).loadGraphic(Paths.image('limo/limoSunset'));
 		                  skyBG.scrollFactor.set(0.1, 0.1);
-		                  if (removeoraddLimo == 'add')
+		                  if (removeoraddLimo == true)
 		                  {
 		                  add(skyBG);
 		                  }
-		                  else if (removeoraddLimo == 'remove')
+		                  else if (removeoraddLimo == false)
 		                  {
 		                  remove(skyBG);
 		                  }
@@ -487,27 +506,27 @@ class PlayState extends MusicBeatState
 		                  bgLimo.animation.addByPrefix('drive', "background limo pink", 24);
 		                  bgLimo.animation.play('drive');
 		                  bgLimo.scrollFactor.set(0.4, 0.4);
-		                  if (removeoraddLimo == 'add')
+		                  if (removeoraddLimo == true)
 		                  {
 		                  add(bgLimo);
 		                  }
-		                  else if (removeoraddLimo == 'remove')
+		                  else if (removeoraddLimo == false)
 		                  {
 		                  remove(bgLimo);
 		                  }
 
 		                  grpLimoDancers = new FlxTypedGroup<BackgroundDancer>();
-		                  if (removeoraddLimo == 'add')
+		                  if (removeoraddLimo == true)
 		                  {
 		                  add(grpLimoDancers);
 		                  }
-		                  else if (removeoraddLimo == 'remove')
+		                  else if (removeoraddLimo == false)
 
 		                  for (i in 0...5)
 		                  {
 		                          var dancer:BackgroundDancer = new BackgroundDancer((370 * i) + 130, bgLimo.y - 400);
 		                          dancer.scrollFactor.set(0.4, 0.4);
-		                          if (removeoraddLimo == 'add')
+		                          if (removeoraddLimo == true)
 		                          {
 		                          grpLimoDancers.add(dancer);
 		                          }
@@ -547,7 +566,7 @@ class PlayState extends MusicBeatState
 		                  bg.active = false;
 		                  bg.setGraphicSize(Std.int(bg.width * 0.8));
 		                  bg.updateHitbox();
-		                  if (removeoraddMall == 'add')
+		                  if (removeoraddMall == true)
 		                  {
 		                  add(bg);
 		                  }
@@ -559,7 +578,7 @@ class PlayState extends MusicBeatState
 		                  upperBoppers.scrollFactor.set(0.33, 0.33);
 		                  upperBoppers.setGraphicSize(Std.int(upperBoppers.width * 0.85));
 		                  upperBoppers.updateHitbox();
-		                  if (removeoraddMall== 'add')
+		                  if (removeoraddMall== true)
 		                  {
 		                  add(upperBoppers);
 		                  }
@@ -570,7 +589,7 @@ class PlayState extends MusicBeatState
 		                  bgEscalator.active = false;
 		                  bgEscalator.setGraphicSize(Std.int(bgEscalator.width * 0.9));
 		                  bgEscalator.updateHitbox();
-		                  if (removeoraddMall == 'add')
+		                  if (removeoraddMall == true)
 		                  {
 		                  add(bgEscalator);
 		                  }
@@ -578,7 +597,7 @@ class PlayState extends MusicBeatState
 		                  var tree:FlxSprite = new FlxSprite(370, -250).loadGraphic(Paths.image('christmas/christmasTree'));
 		                  tree.antialiasing = true;
 		                  tree.scrollFactor.set(0.40, 0.40);
-		                  if (removeoraddMall == 'add')
+		                  if (removeoraddMall == true)
 		                  {
 		                  add(tree);
 		                  }
@@ -590,7 +609,7 @@ class PlayState extends MusicBeatState
 	                          bottomBoppers.scrollFactor.set(0.9, 0.9);
 	                          bottomBoppers.setGraphicSize(Std.int(bottomBoppers.width * 1));
 		                  bottomBoppers.updateHitbox();
-		                  if (removeoraddMall == 'add')
+		                  if (removeoraddMall == true)
 		                  {
 		                  add(bottomBoppers);
 		                  }
@@ -598,7 +617,7 @@ class PlayState extends MusicBeatState
 		                  var fgSnow:FlxSprite = new FlxSprite(-600, 700).loadGraphic(Paths.image('christmas/fgSnow'));
 		                  fgSnow.active = false;
 		                  fgSnow.antialiasing = true;
-		                  if (removeoraddMall == 'add')
+		                  if (removeoraddMall == true)
 		                  {
 		                  add(fgSnow);
 		                  }
@@ -607,7 +626,7 @@ class PlayState extends MusicBeatState
 		                  santa.frames = Paths.getSparrowAtlas('christmas/santa');
 		                  santa.animation.addByPrefix('idle', 'santa idle in fear', 24, false);
 		                  santa.antialiasing = true;
-		                  if (removeoraddMall == 'add')
+		                  if (removeoraddMall == true)
 		                  {
 		                  add(santa);
 		                  }
