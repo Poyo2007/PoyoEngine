@@ -131,6 +131,15 @@ class PlayState extends MusicBeatState
 	public static var campaignScore:Int = 0;
 
 	var defaultCamZoom:Float = 1.05;
+	
+	var removeoraddStage:Bool = true;
+		var removeoraddSpooky:Bool = true;
+		var removeoraddPhilly:Bool = true;
+		var removeoraddLimo:Bool = true;
+		var removeoraddMall:Bool = true;
+		var removeoraddHateSim:Bool = true;
+		var removeoraddEvil:Bool = true;
+		var removeoradd:Bool = true;
 
 	// how big to stretch the pixel art assets
 	public static var daPixelZoom:Float = 6;
@@ -276,361 +285,40 @@ class PlayState extends MusicBeatState
                         {
                         if (!nobg_isenabled)  
                         {
-                        addSpooky;
+                        addSpooky();
                         }
                         }
 		          case 'pico' | 'blammed' | 'philly':
 		          {
 		            if (!nobg_isenabled)
 		            {
-              addPhilly;
+              addPhilly();
 		            }
 		          }
 		          case 'milf' | 'satin-panties' | 'high':
               {
               if (!nobg_isenabled)
               {
-              addLimo;
+              addLimo();
               }
               }
 		          case 'cocoa' | 'eggnog':
 		          {
 		          if (!nobg_isenabled)
 		          {
-		          addMall;
+		          addMall();
 		          }
 		          }
 		          default:
 		          {
 		          if (!nobg_isenabled)
 		          {
-		          addStage;
+		          addStage();
 		          }
 		          }
 		}
 
 		var gfVersion:String = 'gf';
-		
-		var removeoraddStage:Bool = true;
-		var removeoraddSpooky:Bool = true;
-		var removeoraddPhilly:Bool = true;
-		var removeoraddLimo:Bool = true;
-		var removeoraddMall:Bool = true;
-		var removeoraddHateSim:Bool = true;
-		var removeoraddEvil:Bool = true;
-		var removeoradd:Bool = true;
-
-		function addStage():Void
-		{
-		                  defaultCamZoom = 0.9;
-		                  curStage = 'stage';
-		                  var bg:FlxSprite = new FlxSprite(-600, -200).loadGraphic(Paths.image('stageback'));
-		                  bg.antialiasing = true;
-		                  bg.scrollFactor.set(0.9, 0.9);
-		                  bg.active = false;
-		                  if (removeoraddStage == true)
-		                  {
-		                  add(bg);
-		                  }
-		                  else if (removeoraddStage == false)
-                      {
-                      remove(bg);
-                      }
-
-		                  var stageFront:FlxSprite = new FlxSprite(-650, 600).loadGraphic(Paths.image('stagefront'));
-		                  stageFront.setGraphicSize(Std.int(stageFront.width * 1.1));
-		                  stageFront.updateHitbox();
-		                  stageFront.antialiasing = true;
-		                  stageFront.scrollFactor.set(0.9, 0.9);
-		                  stageFront.active = false;
-		                  if (removeoraddStage == true)
-		                  {
-		                  add(stageFront);
-		                  }
-		                  else if (removeoraddStage == false)
-                      {
-                      remove(stageFront);
-                      }
-
-		                  var stageCurtains:FlxSprite = new FlxSprite(-500, -300).loadGraphic(Paths.image('stagecurtains'));
-		                  stageCurtains.setGraphicSize(Std.int(stageCurtains.width * 0.9));
-		                  stageCurtains.updateHitbox();
-		                  stageCurtains.antialiasing = true;
-		                  stageCurtains.scrollFactor.set(1.3, 1.3);
-		                  stageCurtains.active = false;
-		                  if (removeoraddStage == true)
-		                  {
-		                  add(stageCurtains);
-		                  }
-		                  else if (removeoraddStage == false)
-                      {
-                      remove(stageCurtains);
-                      }
-		          }
-		          
-		function addSpooky():Void
-		{
-                                curStage = 'spooky';
-	                          halloweenLevel = true;
-
-		                  var hallowTex = Paths.getSparrowAtlas('halloween_bg');
-
-	                          halloweenBG = new FlxSprite(-200, -100);
-		                  halloweenBG.frames = hallowTex;
-	                          halloweenBG.animation.addByPrefix('idle', 'halloweem bg0');
-	                          halloweenBG.animation.addByPrefix('lightning', 'halloweem bg lightning strike', 24, false);
-	                          halloweenBG.animation.play('idle');
-	                          halloweenBG.antialiasing = true;
-	                          if (removeoraddSpooky == true)
-	                          {
-	                          add(halloweenBG);
-	                          }
-	                          else if (removeoraddSpooky = false)
-	                          {
-	                          add(halloweenBG);
-	                          }
-
-		                  isHalloween = true;
-		          }
-		          
-		function addPhilly():Void
-		{
-		                  curStage = 'philly';
-
-		                  var bg:FlxSprite = new FlxSprite(-100).loadGraphic(Paths.image('philly/sky'));
-		                  bg.scrollFactor.set(0.1, 0.1);
-		                  if (removeoraddPhilly == true)
-		                  {
-		                  add(bg);
-		                  }
-		                  else if (removeoraddPhilly == false)
-		                  {
-		                  remove(bg);
-		                  }
-
-	                          var city:FlxSprite = new FlxSprite(-10).loadGraphic(Paths.image('philly/city'));
-		                  city.scrollFactor.set(0.3, 0.3);
-		                  city.setGraphicSize(Std.int(city.width * 0.85));
-		                  city.updateHitbox();
-		                  if (removeoraddPhilly == true)
-		                  {
-		                  add(city);
-		                  }
-		                  else if (removeoraddPhilly == false)
-		                  {
-		                  remove(city);
-		                  }
-
-		                  phillyCityLights = new FlxTypedGroup<FlxSprite>();
-		                  if (removeoraddPhilly == true)
-		                  {
-		                  add(phillyCityLights);
-		                  }
-		                  else if (removeoraddPhilly == false)
-		                  {
-		                  remove(phillyCityLights);
-		                  }
-
-		                  for (i in 0...5)
-		                  {
-		                          var light:FlxSprite = new FlxSprite(city.x).loadGraphic(Paths.image('philly/win' + i));
-		                          light.scrollFactor.set(0.3, 0.3);
-		                          light.visible = false;
-		                          light.setGraphicSize(Std.int(light.width * 0.85));
-		                          light.updateHitbox();
-		                          light.antialiasing = true;
-		                          if (removeoraddPhilly == true)
-		                          {
-		                          phillyCityLights.add(light);
-		                          }
-		                          else if (removeoraddPhilly == false)
-		                          {
-		                          phillyCityLights.remove(light);
-		                          }
-		                  }
-
-		                  var streetBehind:FlxSprite = new FlxSprite(-40, 50).loadGraphic(Paths.image('philly/behindTrain'));
-		                  if (removeoraddPhilly == true)
-		                  {
-		                  add(streetBehind);
-		                  }
-		                  else if (removeoraddPhilly == false)
-		                  {
-		                  remove(streetBehind);
-		                  }
-
-	                          phillyTrain = new FlxSprite(2000, 360).loadGraphic(Paths.image('philly/train'));
-	                    if (removeoraddPhilly == true)
-	                    {
-		                  add(phillyTrain);
-	                    }
-	                    else if (removeoraddPhilly == false)
-	                    {
-	                    remove(phillyTrain);
-	                    }
-
-		                  trainSound = new FlxSound().loadEmbedded(Paths.sound('train_passes'));
-		                  FlxG.sound.list.add(trainSound);
-
-		                  // var cityLights:FlxSprite = new FlxSprite().loadGraphic(AssetPaths.win0.png);
-
-		                  var street:FlxSprite = new FlxSprite(-40, streetBehind.y).loadGraphic(Paths.image('philly/street'));
-		                  if (removeoraddPhilly == true)
-		                  {
-	                          add(street);
-		                  }
-		                  else if (removeoraddPhilly == false)
-		                  {
-		                  remove(street);
-		                  }
-		          }
-		          
-	  function addLimo():Void
-    {
-		                  curStage = 'limo';
-		                  defaultCamZoom = 0.90;
-
-		                  var skyBG:FlxSprite = new FlxSprite(-120, -50).loadGraphic(Paths.image('limo/limoSunset'));
-		                  skyBG.scrollFactor.set(0.1, 0.1);
-		                  if (removeoraddLimo == true)
-		                  {
-		                  add(skyBG);
-		                  }
-		                  else if (removeoraddLimo == false)
-		                  {
-		                  remove(skyBG);
-		                  }
-
-		                  var bgLimo:FlxSprite = new FlxSprite(-200, 480);
-		                  bgLimo.frames = Paths.getSparrowAtlas('limo/bgLimo');
-		                  bgLimo.animation.addByPrefix('drive', "background limo pink", 24);
-		                  bgLimo.animation.play('drive');
-		                  bgLimo.scrollFactor.set(0.4, 0.4);
-		                  if (removeoraddLimo == true)
-		                  {
-		                  add(bgLimo);
-		                  }
-		                  else if (removeoraddLimo == false)
-		                  {
-		                  remove(bgLimo);
-		                  }
-
-		                  grpLimoDancers = new FlxTypedGroup<BackgroundDancer>();
-		                  if (removeoraddLimo == true)
-		                  {
-		                  add(grpLimoDancers);
-		                  }
-		                  else if (removeoraddLimo == false)
-
-		                  for (i in 0...5)
-		                  {
-		                          var dancer:BackgroundDancer = new BackgroundDancer((370 * i) + 130, bgLimo.y - 400);
-		                          dancer.scrollFactor.set(0.4, 0.4);
-		                          if (removeoraddLimo == true)
-		                          {
-		                          grpLimoDancers.add(dancer);
-		                          }
-		                  }
-
-		                  var overlayShit:FlxSprite = new FlxSprite(-500, -600).loadGraphic(Paths.image('limo/limoOverlay'));
-		                  overlayShit.alpha = 0.5;
-		                  // add(overlayShit);
-
-		                  // var shaderBullshit = new BlendModeEffect(new OverlayShader(), FlxColor.RED);
-
-		                  // FlxG.camera.setFilters([new ShaderFilter(cast shaderBullshit.shader)]);
-
-		                  // overlayShit.shader = shaderBullshit;
-
-		                  var limoTex = Paths.getSparrowAtlas('limo/limoDrive');
-
-		                  limo = new FlxSprite(-120, 550);
-		                  limo.frames = limoTex;
-		                  limo.animation.addByPrefix('drive', "Limo stage", 24);
-		                  limo.animation.play('drive');
-		                  limo.antialiasing = true;
-
-		                  fastCar = new FlxSprite(-300, 160).loadGraphic(Paths.image('limo/fastCarLol'));
-		                  // add(limo);
-		          }
-		          
-		function addMall():Void
-    {
-	                          curStage = 'mall';
-
-		                  defaultCamZoom = 0.80;
-
-		                  var bg:FlxSprite = new FlxSprite(-1000, -500).loadGraphic(Paths.image('christmas/bgWalls'));
-		                  bg.antialiasing = true;
-		                  bg.scrollFactor.set(0.2, 0.2);
-		                  bg.active = false;
-		                  bg.setGraphicSize(Std.int(bg.width * 0.8));
-		                  bg.updateHitbox();
-		                  if (removeoraddMall == true)
-		                  {
-		                  add(bg);
-		                  }
-
-		                  upperBoppers = new FlxSprite(-240, -90);
-		                  upperBoppers.frames = Paths.getSparrowAtlas('christmas/upperBop');
-		                  upperBoppers.animation.addByPrefix('bop', "Upper Crowd Bob", 24, false);
-		                  upperBoppers.antialiasing = true;
-		                  upperBoppers.scrollFactor.set(0.33, 0.33);
-		                  upperBoppers.setGraphicSize(Std.int(upperBoppers.width * 0.85));
-		                  upperBoppers.updateHitbox();
-		                  if (removeoraddMall== true)
-		                  {
-		                  add(upperBoppers);
-		                  }
-
-		                  var bgEscalator:FlxSprite = new FlxSprite(-1100, -600).loadGraphic(Paths.image('christmas/bgEscalator'));
-		                  bgEscalator.antialiasing = true;
-		                  bgEscalator.scrollFactor.set(0.3, 0.3);
-		                  bgEscalator.active = false;
-		                  bgEscalator.setGraphicSize(Std.int(bgEscalator.width * 0.9));
-		                  bgEscalator.updateHitbox();
-		                  if (removeoraddMall == true)
-		                  {
-		                  add(bgEscalator);
-		                  }
-
-		                  var tree:FlxSprite = new FlxSprite(370, -250).loadGraphic(Paths.image('christmas/christmasTree'));
-		                  tree.antialiasing = true;
-		                  tree.scrollFactor.set(0.40, 0.40);
-		                  if (removeoraddMall == true)
-		                  {
-		                  add(tree);
-		                  }
-
-		                  bottomBoppers = new FlxSprite(-300, 140);
-		                  bottomBoppers.frames = Paths.getSparrowAtlas('christmas/bottomBop');
-		                  bottomBoppers.animation.addByPrefix('bop', 'Bottom Level Boppers', 24, false);
-		                  bottomBoppers.antialiasing = true;
-	                          bottomBoppers.scrollFactor.set(0.9, 0.9);
-	                          bottomBoppers.setGraphicSize(Std.int(bottomBoppers.width * 1));
-		                  bottomBoppers.updateHitbox();
-		                  if (removeoraddMall == true)
-		                  {
-		                  add(bottomBoppers);
-		                  }
-
-		                  var fgSnow:FlxSprite = new FlxSprite(-600, 700).loadGraphic(Paths.image('christmas/fgSnow'));
-		                  fgSnow.active = false;
-		                  fgSnow.antialiasing = true;
-		                  if (removeoraddMall == true)
-		                  {
-		                  add(fgSnow);
-		                  }
-
-		                  santa = new FlxSprite(-840, 150);
-		                  santa.frames = Paths.getSparrowAtlas('christmas/santa');
-		                  santa.animation.addByPrefix('idle', 'santa idle in fear', 24, false);
-		                  santa.antialiasing = true;
-		                  if (removeoraddMall == true)
-		                  {
-		                  add(santa);
-		                  }
-		          }
 
 		switch (curStage)
 		{
@@ -1457,6 +1145,318 @@ class PlayState extends MusicBeatState
 	private var paused:Bool = false;
 	var startedCountdown:Bool = false;
 	var canPause:Bool = true;
+	
+	function addStage():Void
+		{
+		                  defaultCamZoom = 0.9;
+		                  curStage = 'stage';
+		                  var bg:FlxSprite = new FlxSprite(-600, -200).loadGraphic(Paths.image('stageback'));
+		                  bg.antialiasing = true;
+		                  bg.scrollFactor.set(0.9, 0.9);
+		                  bg.active = false;
+		                  if (removeoraddStage == true)
+		                  {
+		                  add(bg);
+		                  }
+		                  else if (removeoraddStage == false)
+                      {
+                      remove(bg);
+                      }
+
+		                  var stageFront:FlxSprite = new FlxSprite(-650, 600).loadGraphic(Paths.image('stagefront'));
+		                  stageFront.setGraphicSize(Std.int(stageFront.width * 1.1));
+		                  stageFront.updateHitbox();
+		                  stageFront.antialiasing = true;
+		                  stageFront.scrollFactor.set(0.9, 0.9);
+		                  stageFront.active = false;
+		                  if (removeoraddStage == true)
+		                  {
+		                  add(stageFront);
+		                  }
+		                  else if (removeoraddStage == false)
+                      {
+                      remove(stageFront);
+                      }
+
+		                  var stageCurtains:FlxSprite = new FlxSprite(-500, -300).loadGraphic(Paths.image('stagecurtains'));
+		                  stageCurtains.setGraphicSize(Std.int(stageCurtains.width * 0.9));
+		                  stageCurtains.updateHitbox();
+		                  stageCurtains.antialiasing = true;
+		                  stageCurtains.scrollFactor.set(1.3, 1.3);
+		                  stageCurtains.active = false;
+		                  if (removeoraddStage == true)
+		                  {
+		                  add(stageCurtains);
+		                  }
+		                  else if (removeoraddStage == false)
+                      {
+                      remove(stageCurtains);
+                      }
+		          }
+		          
+		function addSpooky():Void
+		{
+                                curStage = 'spooky';
+	                          halloweenLevel = true;
+
+		                  var hallowTex = Paths.getSparrowAtlas('halloween_bg');
+
+	                          halloweenBG = new FlxSprite(-200, -100);
+		                  halloweenBG.frames = hallowTex;
+	                          halloweenBG.animation.addByPrefix('idle', 'halloweem bg0');
+	                          halloweenBG.animation.addByPrefix('lightning', 'halloweem bg lightning strike', 24, false);
+	                          halloweenBG.animation.play('idle');
+	                          halloweenBG.antialiasing = true;
+	                          if (removeoraddSpooky == true)
+	                          {
+	                          add(halloweenBG);
+	                          }
+	                          else if (removeoraddSpooky = false)
+	                          {
+	                          add(halloweenBG);
+	                          }
+
+		                  isHalloween = true;
+		          }
+		          
+		function addPhilly():Void
+		{
+		                  curStage = 'philly';
+
+		                  var bg:FlxSprite = new FlxSprite(-100).loadGraphic(Paths.image('philly/sky'));
+		                  bg.scrollFactor.set(0.1, 0.1);
+		                  if (removeoraddPhilly == true)
+		                  {
+		                  add(bg);
+		                  }
+		                  else if (removeoraddPhilly == false)
+		                  {
+		                  remove(bg);
+		                  }
+
+	                          var city:FlxSprite = new FlxSprite(-10).loadGraphic(Paths.image('philly/city'));
+		                  city.scrollFactor.set(0.3, 0.3);
+		                  city.setGraphicSize(Std.int(city.width * 0.85));
+		                  city.updateHitbox();
+		                  if (removeoraddPhilly == true)
+		                  {
+		                  add(city);
+		                  }
+		                  else if (removeoraddPhilly == false)
+		                  {
+		                  remove(city);
+		                  }
+
+		                  phillyCityLights = new FlxTypedGroup<FlxSprite>();
+		                  if (removeoraddPhilly == true)
+		                  {
+		                  add(phillyCityLights);
+		                  }
+		                  else if (removeoraddPhilly == false)
+		                  {
+		                  remove(phillyCityLights);
+		                  }
+
+		                  for (i in 0...5)
+		                  {
+		                          var light:FlxSprite = new FlxSprite(city.x).loadGraphic(Paths.image('philly/win' + i));
+		                          light.scrollFactor.set(0.3, 0.3);
+		                          light.visible = false;
+		                          light.setGraphicSize(Std.int(light.width * 0.85));
+		                          light.updateHitbox();
+		                          light.antialiasing = true;
+		                          if (removeoraddPhilly == true)
+		                          {
+		                          phillyCityLights.add(light);
+		                          }
+		                          else if (removeoraddPhilly == false)
+		                          {
+		                          phillyCityLights.remove(light);
+		                          }
+		                  }
+
+		                  var streetBehind:FlxSprite = new FlxSprite(-40, 50).loadGraphic(Paths.image('philly/behindTrain'));
+		                  if (removeoraddPhilly == true)
+		                  {
+		                  add(streetBehind);
+		                  }
+		                  else if (removeoraddPhilly == false)
+		                  {
+		                  remove(streetBehind);
+		                  }
+
+	                          phillyTrain = new FlxSprite(2000, 360).loadGraphic(Paths.image('philly/train'));
+	                    if (removeoraddPhilly == true)
+	                    {
+		                  add(phillyTrain);
+	                    }
+	                    else if (removeoraddPhilly == false)
+	                    {
+	                    remove(phillyTrain);
+	                    }
+
+		                  trainSound = new FlxSound().loadEmbedded(Paths.sound('train_passes'));
+		                  FlxG.sound.list.add(trainSound);
+
+		                  // var cityLights:FlxSprite = new FlxSprite().loadGraphic(AssetPaths.win0.png);
+
+		                  var street:FlxSprite = new FlxSprite(-40, streetBehind.y).loadGraphic(Paths.image('philly/street'));
+		                  if (removeoraddPhilly == true)
+		                  {
+	                          add(street);
+		                  }
+		                  else if (removeoraddPhilly == false)
+		                  {
+		                  remove(street);
+		                  }
+		          }
+		          
+	  function addLimo():Void
+    {
+		                  curStage = 'limo';
+		                  defaultCamZoom = 0.90;
+
+		                  var skyBG:FlxSprite = new FlxSprite(-120, -50).loadGraphic(Paths.image('limo/limoSunset'));
+		                  skyBG.scrollFactor.set(0.1, 0.1);
+		                  if (removeoraddLimo == true)
+		                  {
+		                  add(skyBG);
+		                  }
+		                  else if (removeoraddLimo == false)
+		                  {
+		                  remove(skyBG);
+		                  }
+
+		                  var bgLimo:FlxSprite = new FlxSprite(-200, 480);
+		                  bgLimo.frames = Paths.getSparrowAtlas('limo/bgLimo');
+		                  bgLimo.animation.addByPrefix('drive', "background limo pink", 24);
+		                  bgLimo.animation.play('drive');
+		                  bgLimo.scrollFactor.set(0.4, 0.4);
+		                  if (removeoraddLimo == true)
+		                  {
+		                  add(bgLimo);
+		                  }
+		                  else if (removeoraddLimo == false)
+		                  {
+		                  remove(bgLimo);
+		                  }
+
+		                  grpLimoDancers = new FlxTypedGroup<BackgroundDancer>();
+		                  if (removeoraddLimo == true)
+		                  {
+		                  add(grpLimoDancers);
+		                  }
+		                  else if (removeoraddLimo == false)
+
+		                  for (i in 0...5)
+		                  {
+		                          var dancer:BackgroundDancer = new BackgroundDancer((370 * i) + 130, bgLimo.y - 400);
+		                          dancer.scrollFactor.set(0.4, 0.4);
+		                          if (removeoraddLimo == true)
+		                          {
+		                          grpLimoDancers.add(dancer);
+		                          }
+		                  }
+
+		                  var overlayShit:FlxSprite = new FlxSprite(-500, -600).loadGraphic(Paths.image('limo/limoOverlay'));
+		                  overlayShit.alpha = 0.5;
+		                  // add(overlayShit);
+
+		                  // var shaderBullshit = new BlendModeEffect(new OverlayShader(), FlxColor.RED);
+
+		                  // FlxG.camera.setFilters([new ShaderFilter(cast shaderBullshit.shader)]);
+
+		                  // overlayShit.shader = shaderBullshit;
+
+		                  var limoTex = Paths.getSparrowAtlas('limo/limoDrive');
+
+		                  limo = new FlxSprite(-120, 550);
+		                  limo.frames = limoTex;
+		                  limo.animation.addByPrefix('drive', "Limo stage", 24);
+		                  limo.animation.play('drive');
+		                  limo.antialiasing = true;
+
+		                  fastCar = new FlxSprite(-300, 160).loadGraphic(Paths.image('limo/fastCarLol'));
+		                  // add(limo);
+		          }
+		          
+		function addMall():Void
+    {
+	                          curStage = 'mall';
+
+		                  defaultCamZoom = 0.80;
+
+		                  var bg:FlxSprite = new FlxSprite(-1000, -500).loadGraphic(Paths.image('christmas/bgWalls'));
+		                  bg.antialiasing = true;
+		                  bg.scrollFactor.set(0.2, 0.2);
+		                  bg.active = false;
+		                  bg.setGraphicSize(Std.int(bg.width * 0.8));
+		                  bg.updateHitbox();
+		                  if (removeoraddMall == true)
+		                  {
+		                  add(bg);
+		                  }
+
+		                  upperBoppers = new FlxSprite(-240, -90);
+		                  upperBoppers.frames = Paths.getSparrowAtlas('christmas/upperBop');
+		                  upperBoppers.animation.addByPrefix('bop', "Upper Crowd Bob", 24, false);
+		                  upperBoppers.antialiasing = true;
+		                  upperBoppers.scrollFactor.set(0.33, 0.33);
+		                  upperBoppers.setGraphicSize(Std.int(upperBoppers.width * 0.85));
+		                  upperBoppers.updateHitbox();
+		                  if (removeoraddMall== true)
+		                  {
+		                  add(upperBoppers);
+		                  }
+
+		                  var bgEscalator:FlxSprite = new FlxSprite(-1100, -600).loadGraphic(Paths.image('christmas/bgEscalator'));
+		                  bgEscalator.antialiasing = true;
+		                  bgEscalator.scrollFactor.set(0.3, 0.3);
+		                  bgEscalator.active = false;
+		                  bgEscalator.setGraphicSize(Std.int(bgEscalator.width * 0.9));
+		                  bgEscalator.updateHitbox();
+		                  if (removeoraddMall == true)
+		                  {
+		                  add(bgEscalator);
+		                  }
+
+		                  var tree:FlxSprite = new FlxSprite(370, -250).loadGraphic(Paths.image('christmas/christmasTree'));
+		                  tree.antialiasing = true;
+		                  tree.scrollFactor.set(0.40, 0.40);
+		                  if (removeoraddMall == true)
+		                  {
+		                  add(tree);
+		                  }
+
+		                  bottomBoppers = new FlxSprite(-300, 140);
+		                  bottomBoppers.frames = Paths.getSparrowAtlas('christmas/bottomBop');
+		                  bottomBoppers.animation.addByPrefix('bop', 'Bottom Level Boppers', 24, false);
+		                  bottomBoppers.antialiasing = true;
+	                          bottomBoppers.scrollFactor.set(0.9, 0.9);
+	                          bottomBoppers.setGraphicSize(Std.int(bottomBoppers.width * 1));
+		                  bottomBoppers.updateHitbox();
+		                  if (removeoraddMall == true)
+		                  {
+		                  add(bottomBoppers);
+		                  }
+
+		                  var fgSnow:FlxSprite = new FlxSprite(-600, 700).loadGraphic(Paths.image('christmas/fgSnow'));
+		                  fgSnow.active = false;
+		                  fgSnow.antialiasing = true;
+		                  if (removeoraddMall == true)
+		                  {
+		                  add(fgSnow);
+		                  }
+
+		                  santa = new FlxSprite(-840, 150);
+		                  santa.frames = Paths.getSparrowAtlas('christmas/santa');
+		                  santa.animation.addByPrefix('idle', 'santa idle in fear', 24, false);
+		                  santa.antialiasing = true;
+		                  if (removeoraddMall == true)
+		                  {
+		                  add(santa);
+		                  }
+		          }
 
 	override public function update(elapsed:Float)
 	{
