@@ -288,6 +288,7 @@ class PlayState extends MusicBeatState
 		          {
 		          addMall();
 		          }
+		}
 
 		var gfVersion:String = 'gf';
 		
