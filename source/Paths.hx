@@ -89,10 +89,20 @@ class Paths
 	{
 		return 'songs:assets/songs/${song.toLowerCase()}/Voices.$SOUND_EXT';
 	}
+	
+	inline static public function voicesbside(song:String)
+	{
+		return 'songs:assets/songs/${song.toLowerCase()}/VoicesBSide.$SOUND_EXT';
+	}
 
 	inline static public function inst(song:String)
 	{
 		return 'songs:assets/songs/${song.toLowerCase()}/Inst.$SOUND_EXT';
+	}
+	
+	inline static public function instbside(song:String)
+	{
+		return 'songs:assets/songs/${song.toLowerCase()}/InstBSide.$SOUND_EXT';
 	}
 
 	inline static public function image(key:String, ?library:String)

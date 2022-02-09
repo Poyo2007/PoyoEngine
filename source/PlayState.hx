@@ -508,20 +508,14 @@ class PlayState extends MusicBeatState
 		// healthBar
 		add(healthBar);
 
-		scoreTxt = new FlxText(0, 0, "", 20);
+		scoreTxt = new FlxText(healthBarBG.x, healthBarBG.y + 30, "", 20);
 		scoreTxt.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-		scoreTxt.alignment = FlxTextAlign.CENTER;
-		scoreTxt.scrollFactor.set();
-		scoreTxt.y = healthBarBG.y + 30;
-		scoreTxt.screenCenter(X);
+	  scoreTxt.scrollFactor.set();
 		add(scoreTxt);
 		
-		noteTxt = new FlxText(45, 495, "", 20);
+		noteTxt = new FlxText(healthBarBG.x, healthBarBG.y + 50, "", 20);
 		noteTxt.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-		noteTxt.alignment = FlxTextAlign.CENTER;
-		noteTxt.y = healthBarBG.y + 45;
 		noteTxt.scrollFactor.set();
-		noteTxt.screenCenter(X);
 		add(noteTxt);
 
 		iconP1 = new HealthIcon(SONG.player1, true);
@@ -807,9 +801,18 @@ class PlayState extends MusicBeatState
 		lastReportedPlayheadPosition = 0;
 
 		if (!paused)
+		{
+		  if (!storyDifficulty == 3)
+		  {
 			FlxG.sound.playMusic(Paths.inst(PlayState.SONG.song), 1, false);
+		  }
+		  else
+		  FlxG.sound.playMusic(Paths.instbside(PlayState.SONG.song), 1, false);
+
+		  
 		FlxG.sound.music.onComplete = endSong;
 		vocals.play();
+		}
 
 		#if desktop
 		// Song duration in a float, useful for the time left feature
@@ -833,6 +836,9 @@ class PlayState extends MusicBeatState
 
 		if (SONG.needsVoices)
 			vocals = new FlxSound().loadEmbedded(Paths.voices(PlayState.SONG.song));
+    else if (SONG.needsVoices && storyDifficulty == 3)
+      vocals = new FlxSound().loadEmbedded(Paths.voicesbside(PlayState.SONG.song));
+
 		else
 			vocals = new FlxSound();
 
@@ -2100,6 +2106,9 @@ class PlayState extends MusicBeatState
 
 				if (storyDifficulty == 2)
 					difficulty = '-hard';
+				
+				if (storyDifficulty == 3)
+					difficulty = '-bside';
 
 				trace('LOADING NEXT SONG');
 				trace(PlayState.storyPlaylist[0].toLowerCase() + difficulty);

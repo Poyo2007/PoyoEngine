@@ -19,11 +19,20 @@ using StringTools;
 class StoryMenuState extends MusicBeatState
 {
 	var scoreText:FlxText;
+	
+	var BSideDiffic:FlxText;
 
 	var weekData:Array<Dynamic> = [
 		['Tutorial'],
 		['Bopeebo', 'Fresh', 'Dadbattle'],
-		['Spookeez', 'South', "Monster"],
+		if (curDifficulty == 3)
+		{
+		['Spookeez', 'South'],
+		}
+		else
+{
+    ['Spookeez', 'South', 'Monster'],
+}
 		['Pico', 'Philly', "Blammed"],
 		['Satin-Panties', "High", "Milf"],
 		['Cocoa', 'Eggnog', 'Winter-Horrorland'],
@@ -171,6 +180,7 @@ class StoryMenuState extends MusicBeatState
 		add(difficultySelectors);
 
 		trace("Line 124");
+		var difficultySelectorRemoved:Bool = false;
 
 		leftArrow = new FlxSprite(grpWeekText.members[0].x + grpWeekText.members[0].width + 10, grpWeekText.members[0].y + 10);
 		leftArrow.frames = ui_tex;
@@ -332,6 +342,8 @@ class StoryMenuState extends MusicBeatState
 					diffic = '-easy';
 				case 2:
 					diffic = '-hard';
+				case 3:
+					diffic = '-bside';
 			}
 
 			PlayState.storyDifficulty = curDifficulty;
@@ -360,6 +372,11 @@ class StoryMenuState extends MusicBeatState
 		switch (curDifficulty)
 		{
 			case 0:
+			  if (difficultySelectorRemoved = true)
+			  {
+			    difficultySelectors.add(sprDifficulty);
+			    difficultySelectorRemoved = false;
+			  }
 				sprDifficulty.animation.play('easy');
 				sprDifficulty.offset.x = 20;
 			case 1:
@@ -368,6 +385,15 @@ class StoryMenuState extends MusicBeatState
 			case 2:
 				sprDifficulty.animation.play('hard');
 				sprDifficulty.offset.x = 20;
+			case 3:
+			  difficultySelectors.remove(sprDifficulty)
+			  difficultySelectorRemoved = true;
+			  BSideDiffic = new FlxText(sprDifficulty.x, sprDifficulty.y);
+		    BSideDiffic.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
+	      BSideDiffic.scrollFactor.set();
+	      BSideDiffic.text = "B-Sides"
+		    add(BSideDiffic);
+			  
 		}
 
 		sprDifficulty.alpha = 0;
