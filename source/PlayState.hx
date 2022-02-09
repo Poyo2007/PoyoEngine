@@ -602,6 +602,7 @@ class PlayState extends MusicBeatState
 		var removeoraddStage:String = 'add';
 		var removeoraddSpooky:String = 'add';
 		var removeoraddPhilly:String = 'add';
+		var removeoradd:String = 'add';
 
 		function addStage():Void
 		{
@@ -766,6 +767,75 @@ class PlayState extends MusicBeatState
 		                  {
 		                  remove(street);
 		                  }
+		          }
+		          
+	  function addLimo():Void
+    {
+		                  curStage = 'limo';
+		                  defaultCamZoom = 0.90;
+
+		                  var skyBG:FlxSprite = new FlxSprite(-120, -50).loadGraphic(Paths.image('limo/limoSunset'));
+		                  skyBG.scrollFactor.set(0.1, 0.1);
+		                  if (removeoraddLimo == 'add')
+		                  {
+		                  add(skyBG);
+		                  }
+		                  else if (removeoraddLimo == 'remove')
+		                  {
+		                  remove(skyBG);
+		                  }
+
+		                  var bgLimo:FlxSprite = new FlxSprite(-200, 480);
+		                  bgLimo.frames = Paths.getSparrowAtlas('limo/bgLimo');
+		                  bgLimo.animation.addByPrefix('drive', "background limo pink", 24);
+		                  bgLimo.animation.play('drive');
+		                  bgLimo.scrollFactor.set(0.4, 0.4);
+		                  if (removeoraddLimo == 'add')
+		                  {
+		                  add(bgLimo);
+		                  }
+		                  else if (removeoraddLimo == 'remove')
+		                  {
+		                  remove(bgLimo);
+		                  }
+
+		                  grpLimoDancers = new FlxTypedGroup<BackgroundDancer>();
+		                  if (removeoraddLimo == 'add')
+		                  {
+		                  add(grpLimoDancers);
+		                  }
+		                  else if (removeoraddLimo == 'remove')
+
+		                  for (i in 0...5)
+		                  {
+		                          var dancer:BackgroundDancer = new BackgroundDancer((370 * i) + 130, bgLimo.y - 400);
+		                          dancer.scrollFactor.set(0.4, 0.4)
+		                          if (removeoraddLimo == 'add')
+		                          {
+		                          grpLimoDancers.add(dancer);
+		                          }
+		                  }
+
+		                  var overlayShit:FlxSprite = new FlxSprite(-500, -600).loadGraphic(Paths.image('limo/limoOverlay'));
+		                  overlayShit.alpha = 0.5;
+		                  // add(overlayShit);
+
+		                  // var shaderBullshit = new BlendModeEffect(new OverlayShader(), FlxColor.RED);
+
+		                  // FlxG.camera.setFilters([new ShaderFilter(cast shaderBullshit.shader)]);
+
+		                  // overlayShit.shader = shaderBullshit;
+
+		                  var limoTex = Paths.getSparrowAtlas('limo/limoDrive');
+
+		                  limo = new FlxSprite(-120, 550);
+		                  limo.frames = limoTex;
+		                  limo.animation.addByPrefix('drive', "Limo stage", 24);
+		                  limo.animation.play('drive');
+		                  limo.antialiasing = true;
+
+		                  fastCar = new FlxSprite(-300, 160).loadGraphic(Paths.image('limo/fastCarLol'));
+		                  // add(limo);
 		          }
 
 		switch (curStage)
