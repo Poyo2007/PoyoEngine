@@ -382,7 +382,7 @@ class StoryMenuState extends MusicBeatState
 				sprDifficulty.animation.play('hard');
 				sprDifficulty.offset.x = 20;
 			case 3:
-			  difficultySelectors.remove(sprDifficulty)
+			  difficultySelectors.remove(sprDifficulty);
 			  difficultySelectorRemoved = true;
 			  BSideDiffic = new FlxText(sprDifficulty.x, sprDifficulty.y);
 		    BSideDiffic.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
