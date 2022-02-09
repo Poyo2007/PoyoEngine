@@ -1,5 +1,6 @@
 package;
 
+import flixel.graphics.FlxGraphic;
 #if desktop
 import Discord.DiscordClient;
 #end
@@ -169,6 +170,8 @@ class PlayState extends MusicBeatState
 
 	override public function create()
 	{
+		Paths.clearStoredMemory();
+
 		if (FlxG.sound.music != null)
 			FlxG.sound.music.stop();
 
@@ -596,6 +599,8 @@ class PlayState extends MusicBeatState
 		}
 
 		super.create();
+
+		Paths.clearUnusedMemory();
 	}
 
 	function schoolIntro(?dialogueBox:DialogueBox):Void

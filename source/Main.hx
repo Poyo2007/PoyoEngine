@@ -1,5 +1,6 @@
 package;
 
+import flixel.graphics.FlxGraphic;
 import flixel.FlxGame;
 import flixel.FlxState;
 import openfl.Assets;
@@ -78,8 +79,9 @@ class Main extends Sprite
 		{
 			framerate = _gamesave.data.fps[0];
 		}
-
-
+		// fuck you, persistent caching stays ON during sex
+		FlxGraphic.defaultPersist = true;
+		// the reason for this is we're going to be handling our own cache smartly
 		addChild(new FlxGame(1280, 720, initialState, 1, framerate, framerate, skipSplash, startFullscreen));
 		//addChild(new FlxGame(gameWidth, gameHeight, initialState, zoom, framerate, framerate, skipSplash, startFullscreen));
 
