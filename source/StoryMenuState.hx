@@ -19,8 +19,7 @@ using StringTools;
 class StoryMenuState extends MusicBeatState
 {
 	var scoreText:FlxText;
-	var difficultySelectorRemoved:Bool = false;
-	var BSideDiffic:FlxText;
+
 
 	var weekData:Array<Dynamic> = [
 		['Tutorial'],
@@ -337,8 +336,6 @@ class StoryMenuState extends MusicBeatState
 					diffic = '-easy';
 				case 2:
 					diffic = '-hard';
-				case 3:
-					diffic = '-bside';
 			}
 
 			PlayState.storyDifficulty = curDifficulty;
@@ -357,9 +354,9 @@ class StoryMenuState extends MusicBeatState
 	{
 		curDifficulty += change;
 
-		if (curDifficulty < 0)
+		if (curDifficulty < 2)
 			curDifficulty = 3;
-		if (curDifficulty > 3)
+		if (curDifficulty > 2)
 			curDifficulty = 0;
 
 		sprDifficulty.offset.x = 0;
@@ -367,11 +364,6 @@ class StoryMenuState extends MusicBeatState
 		switch (curDifficulty)
 		{
 			case 0:
-			  if (difficultySelectorRemoved = true)
-			  {
-			    difficultySelectors.add(sprDifficulty);
-			    difficultySelectorRemoved = false;
-			  }
 				sprDifficulty.animation.play('easy');
 				sprDifficulty.offset.x = 20;
 			case 1:
@@ -380,15 +372,6 @@ class StoryMenuState extends MusicBeatState
 			case 2:
 				sprDifficulty.animation.play('hard');
 				sprDifficulty.offset.x = 20;
-			case 3:
-			  difficultySelectors.remove(sprDifficulty);
-			  difficultySelectorRemoved = true;
-			  BSideDiffic = new FlxText(sprDifficulty.x, sprDifficulty.y);
-		    BSideDiffic.setFormat(Paths.font("vcr.ttf"), 16, FlxColor.WHITE, CENTER, FlxTextBorderStyle.OUTLINE, FlxColor.BLACK);
-	      BSideDiffic.scrollFactor.set();
-	      BSideDiffic.text = "B-Sides";
-		    add(BSideDiffic);
-			  
 		}
 
 		sprDifficulty.alpha = 0;

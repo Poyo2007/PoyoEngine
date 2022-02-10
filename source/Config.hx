@@ -27,6 +27,19 @@ class Config {
         return false;
     }
     
+    public function setsplitassets(?value:Bool):Bool {
+		if (save.data.assetsplit == null) save.data.assetsplit = false;
+		
+		save.data.assetsplit = !save.data.assetsplit;
+		save.flush();
+        return save.data.assetsplit;
+	}
+
+    public function getsplitassets():Bool {
+        if (save.data.assetsplit != null) return save.data.assetsplit;
+        return false;
+    }
+    
     public function sethitsound(?value:Bool):Bool {
 		if (save.data.usehitsound == null) save.data.usehitsound = false;
 		

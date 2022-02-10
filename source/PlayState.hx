@@ -243,8 +243,6 @@ class PlayState extends MusicBeatState
 				storyDifficultyText = "Normal";
 			case 2:
 				storyDifficultyText = "Hard";
-			case 3:
-				storyDifficultyText = "B-Sides";
 		}
 
 		iconRPC = SONG.player2;
@@ -307,6 +305,20 @@ class PlayState extends MusicBeatState
 		          addMall();
 		          }
 		          }
+		          case 'senpai' | 'roses':
+{
+              if (!nobg_isenabled)
+              {
+              addSchool();
+              }
+}
+              case 'thorns':
+{
+              if (!nobg_isenabled)
+              {
+              addSchoolEvil();
+              }
+}
 		          default:
 		          {
 		          if (!nobg_isenabled)
@@ -2111,9 +2123,6 @@ class PlayState extends MusicBeatState
 
 				if (storyDifficulty == 2)
 					difficulty = '-hard';
-				
-				if (storyDifficulty == 3)
-					difficulty = '-bside';
 
 				trace('LOADING NEXT SONG');
 				trace(PlayState.storyPlaylist[0].toLowerCase() + difficulty);

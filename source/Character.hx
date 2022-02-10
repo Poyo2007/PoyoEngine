@@ -33,6 +33,22 @@ class Character extends FlxSprite
 		this.isPlayer = isPlayer;
 
 		var tex:FlxAtlasFrames;
+		
+    //CHARACTER MOMENT
+		/*var idle:FlxAtlasFrames;
+		var singleftandmiss:FlxAtlasFrames;
+		var singrightandmiss:FlxAtlasFrames;
+		var singupandmiss:FlxAtlasFrames;
+		var singdownandmiss:FlxAtlasFrames;
+		var death:FlxAtlasFrames;
+		var ay:FlxAtlasFrames;
+		var scare:FlxAtlasFrames;*/
+		
+		var config:Config = new Config();
+	  var splitassets_isenabled:Bool = false;
+	  
+	  splitassets_isenabled = config.getsplitassets();
+	
 		antialiasing = true;
 
 		switch (curCharacter)
@@ -299,8 +315,23 @@ class Character extends FlxSprite
 				flipX = true;
 
 			case 'bf':
-				var tex = Paths.getSparrowAtlas('BOYFRIEND');
-				frames = tex;
+			if (!splitassets_isenabled)
+			  {
+			    var tex = Paths.getSparrowAtlas('BOYFRIEND');
+			    frames = tex;
+			  }
+			else
+        {
+        var tex = Paths.getSparrowAtlas('optimization/bf/bfIdle');
+        var tex2 = Paths.getSparrowAtlas('optimization/bf/bfLeft');
+        var tex3 = Paths.getSparrowAtlas('optimization/bf/bfDown');
+        var tex4 = Paths.getSparrowAtlas('optimization/bf/bfUP');
+        var tex5 = Paths.getSparrowAtlas('optimization/bf/bfShake');
+        var tex6 = Paths.getSparrowAtlas('optimization/bf/bfLoop');
+        
+        tex = jointex(tex, jointex(tex2, jointex(tex3, jointex(tex4, jointex(tex5, tex6)))));
+
+        }
 				animation.addByPrefix('idle', 'BF idle dance', 24, false);
 				animation.addByPrefix('singUP', 'BF NOTE UP0', 24, false);
 				animation.addByPrefix('singLEFT', 'BF NOTE LEFT0', 24, false);
