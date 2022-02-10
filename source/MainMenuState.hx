@@ -106,7 +106,9 @@ class MainMenuState extends MusicBeatState
 
 		_pad = new FlxVirtualPad(UP_DOWN, A_B);
 		_pad.alpha = 0.75;
+		#if mobile
 		this.add(_pad);
+		#end
 
 		super.create();
 	}
@@ -122,10 +124,10 @@ class MainMenuState extends MusicBeatState
 
 		if (!selectedSomethin)
 		{
-			var UP_P = _pad.buttonUp.justPressed;
-			var DOWN_P = _pad.buttonDown.justPressed;
-			var BACK = _pad.buttonB.justPressed;
-			var ACCEPT = _pad.buttonA.justPressed;
+			var UP_P = _pad.buttonUp.justPressed || controls.UP;
+			var DOWN_P = _pad.buttonDown.justPressed || controls.DOWN;
+			var BACK = _pad.buttonB.justPressed || controls.BACK;
+			var ACCEPT = _pad.buttonA.justPressed || controls.ACCEPT;
 
 			if (UP_P)
 			{

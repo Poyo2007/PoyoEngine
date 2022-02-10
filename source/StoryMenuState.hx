@@ -220,7 +220,9 @@ class StoryMenuState extends MusicBeatState
 
 		_pad = new FlxVirtualPad(FULL, A_B);
     	_pad.alpha = 0.75;
+    	#if mobile
     	this.add(_pad);
+    	#end
 
 		super.create();
 	}
@@ -244,16 +246,16 @@ class StoryMenuState extends MusicBeatState
 			lock.y = grpWeekText.members[lock.ID].y;
 		});
 
-		var UP_P = _pad.buttonUp.justPressed;
-		var RIGHT_P = _pad.buttonRight.justPressed;
-		var DOWN_P = _pad.buttonDown.justPressed;
-		var LEFT_P = _pad.buttonLeft.justPressed;
+		var UP_P = _pad.buttonUp.justPressed || controls.UP;
+		var RIGHT_P = _pad.buttonRight.justPressed || controls.RIGHT;
+		var DOWN_P = _pad.buttonDown.justPressed || controls.DOWN;
+		var LEFT_P = _pad.buttonLeft.justPressed || controls.LEFT;
 		
 		var RIGHT = _pad.buttonRight.pressed;
 		var LEFT = _pad.buttonLeft.pressed;
 
-		var ACCEPT = _pad.buttonA.justPressed;
-		var BACK = _pad.buttonB.justPressed;
+		var ACCEPT = _pad.buttonA.justPressed || controls.ACCEPT;
+		var BACK = _pad.buttonB.justPressed || controls.BACK;
 
 		#if android
 			var BACK = _pad.buttonB.justPressed || FlxG.android.justReleased.BACK;
@@ -275,12 +277,12 @@ class StoryMenuState extends MusicBeatState
 					changeWeek(1);
 				}
 
-				if (RIGHT)
+				if (RIGHT_P)
 					rightArrow.animation.play('press')
 				else
 					rightArrow.animation.play('idle');
 
-				if (LEFT)
+				if (LEFT_P)
 					leftArrow.animation.play('press');
 				else
 					leftArrow.animation.play('idle');

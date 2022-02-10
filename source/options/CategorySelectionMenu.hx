@@ -84,16 +84,16 @@ class CategorySelectionMenu extends MusicBeatState
 		super.update(elapsed);
 
 		if (!insubstate){
-			UP_P = _pad.buttonUp.justReleased;
-			DOWN_P = _pad.buttonDown.justReleased;
+			UP_P = _pad.buttonUp.justPressed || controls.UP;
+			DOWN_P = _pad.buttonDown.justPressed || controls.DOWN;
 
 			#if android
-			BACK = _pad.buttonB.justPressed || FlxG.android.justReleased.BACK;
+			BACK = _pad.buttonB.justPressed || FlxG.android.justReleased.BACK || controls.BACK;
 			#else
-			BACK = _pad.buttonB.justPressed;
+			BACK = _pad.buttonB.justPressed || controls.BACK;
 			#end
 			
-			ACCEPT = _pad.buttonA.justReleased;
+			ACCEPT = _pad.buttonA.justReleased || controls.ACCEPT;
 		}
 		
 		if (ACCEPT)

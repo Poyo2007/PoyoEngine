@@ -153,7 +153,9 @@ class FreeplayState extends MusicBeatState
 		
 		_pad = new FlxVirtualPad(FULL, A_B);
 		_pad.alpha = 0.65;
+		#if mobile
 		this.add(_pad);
+		#end
  
 		super.create();
 	}
@@ -200,15 +202,15 @@ class FreeplayState extends MusicBeatState
 		var accepted = controls.ACCEPT;
 		*/
 
-		var upP = _pad.buttonUp.justPressed;
-		var downP = _pad.buttonDown.justPressed;
-		var LEFT_P = _pad.buttonLeft.justPressed;
-		var RIGHT_P = _pad.buttonRight.justPressed;
-		var accepted = _pad.buttonA.justPressed;
+		var upP = _pad.buttonUp.justPressed || controls.UP;
+		var downP = _pad.buttonDown.justPressed || controls.DOWN;
+		var LEFT_P = _pad.buttonLeft.justPressed || controls.LEFT;
+		var RIGHT_P = _pad.buttonRight.justPressed || controls.RIGHT;
+		var accepted = _pad.buttonA.justPressed || controls.ACCEPT;
 		#if android
-			var BACK = _pad.buttonB.justPressed || FlxG.android.justReleased.BACK;
+			var BACK = _pad.buttonB.justPressed || FlxG.android.justReleased.BACK || controls.BACK;
 		#else
-			var BACK = _pad.buttonB.justPressed;
+			var BACK = _pad.buttonB.justPressed || controls.BACK;
 		#end
 
 		if (upP)
