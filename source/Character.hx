@@ -322,12 +322,12 @@ class Character extends FlxSprite
 			  }
 			else
         {
-        var tex = Paths.getSparrowAtlas('optimization/bf/bfIdle');
-        var tex2 = Paths.getSparrowAtlas('optimization/bf/bfLeft');
-        var tex3 = Paths.getSparrowAtlas('optimization/bf/bfDown');
-        var tex4 = Paths.getSparrowAtlas('optimization/bf/bfUP');
-        var tex5 = Paths.getSparrowAtlas('optimization/bf/bfShake');
-        var tex6 = Paths.getSparrowAtlas('optimization/bf/bfLoop');
+        var tex = Paths.getSparrowAtlas('optimized/bf/bfIdle');
+        var tex2 = Paths.getSparrowAtlas('optimized/bf/bfLeft');
+        var tex3 = Paths.getSparrowAtlas('optimized/bf/bfDown');
+        var tex4 = Paths.getSparrowAtlas('optimized/bf/bfUP');
+        var tex5 = Paths.getSparrowAtlas('optimized/bf/bfShake');
+        var tex6 = Paths.getSparrowAtlas('optimized/bf/bfLoop');
         
         tex = jointex(tex, jointex(tex2, jointex(tex3, jointex(tex4, jointex(tex5, tex6)))));
 

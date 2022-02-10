@@ -17,7 +17,7 @@ import WebViewVideo;
 
 import flixel.util.FlxSave;
 
-class OptionsMenu extends MusicBeatState
+class OptimizationMenu extends MusicBeatState
 {
 	var selector:FlxText;
 	var curSelected:Int = 0;
