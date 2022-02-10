@@ -180,7 +180,7 @@ class OptimizationMenu extends MusicBeatState
 		else
 		{
 			if (BACK)
-				FlxG.switchState(new MainMenuState());
+				FlxG.switchState(new options.CategorySelectionMenu());
 			if (UP_P)
 				changeSelection(-1);
 			if (DOWN_P)
