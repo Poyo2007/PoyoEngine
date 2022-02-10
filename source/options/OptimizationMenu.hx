@@ -28,7 +28,7 @@ class OptimizationMenu extends MusicBeatState
 
 	private var grpControls:FlxTypedGroup<Alphabet>;
 
-	var menuItems:Array<String> = ['bg', 'characters', 'split assets'];
+	var menuItems:Array<String> = ['bg', 'characters', 'split assets: off'];
 
 	var _pad:FlxVirtualPad;
 
@@ -126,16 +126,6 @@ class OptimizationMenu extends MusicBeatState
 
 			switch (daSelected)
 			{
-				case "controls":
-					FlxG.switchState(new options.CustomControlsState());
-				
-				case "config":
-					trace("hello");
-				
-				case "set fps":
-					insubstate = true;
-					openSubState(new options.SetFpsSubState());
-				
 				case "downscroll: on" | "downscroll: off":
 					config.setdownscroll();
 					FlxG.resetState();
