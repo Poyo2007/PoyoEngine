@@ -178,7 +178,7 @@ class CustomControlsState extends MusicBeatSubstate
 		var androidback:Bool = false;
 		#end
 		if (exitbutton.justReleased || androidback){
-			FlxG.switchState(new options.GameplayCategoryMenu());
+			FlxG.switchState(new options.CatergoySelectionMenu());
 		}
 		
 		for (touch in FlxG.touches.list){
