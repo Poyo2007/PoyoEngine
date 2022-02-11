@@ -124,8 +124,8 @@ class MainMenuState extends MusicBeatState
 
 		if (!selectedSomethin)
 		{
-			var UP_P = _pad.buttonUp.justPressed || controls.UP;
-			var DOWN_P = _pad.buttonDown.justPressed || controls.DOWN;
+			var UP_P = _pad.buttonUp.justPressed || controls.UP_P;
+			var DOWN_P = _pad.buttonDown.justPressed || controls.DOWN_P;
 			var BACK = _pad.buttonB.justPressed || controls.BACK;
 			var ACCEPT = _pad.buttonA.justPressed || controls.ACCEPT;
 

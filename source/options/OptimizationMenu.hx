@@ -108,8 +108,8 @@ class OptimizationMenu extends MusicBeatState
 		super.update(elapsed);
 
 		if (!insubstate){
-			UP_P = _pad.buttonUp.justPressed || controls.UP;
-			DOWN_P = _pad.buttonDown.justPressed || controls.DOWN;
+			UP_P = _pad.buttonUp.justPressed || controls.UP_P;
+			DOWN_P = _pad.buttonDown.justPressed || controls.DOWN_P;
 
 			#if android
 			BACK = _pad.buttonB.justPressed || FlxG.android.justReleased.BACK || controls.BACK;

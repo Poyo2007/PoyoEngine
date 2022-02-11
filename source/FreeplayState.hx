@@ -89,7 +89,7 @@ class FreeplayState extends MusicBeatState
 
 		for (i in 0...songs.length)
 		{
-			var songText:Alphabet = new Alphabet(0, (70 * i) + 30, songs[i].songName, true, false);
+			var songText:Alphabet = new Alphabet(300, (70 * i) + 30, songs[i].songName, true, false);
 			songText.isMenuItem = true;
 			songText.targetY = i;
 			grpSongs.add(songText);
@@ -202,10 +202,10 @@ class FreeplayState extends MusicBeatState
 		var accepted = controls.ACCEPT;
 		*/
 
-		var upP = _pad.buttonUp.justPressed || controls.UP;
-		var downP = _pad.buttonDown.justPressed || controls.DOWN;
-		var LEFT_P = _pad.buttonLeft.justPressed || controls.LEFT;
-		var RIGHT_P = _pad.buttonRight.justPressed || controls.RIGHT;
+		var upP = _pad.buttonUp.justPressed || controls.UP_P;
+		var downP = _pad.buttonDown.justPressed || controls.DOWN_P;
+		var LEFT_P = _pad.buttonLeft.justPressed || controls.LEFT_P;
+		var RIGHT_P = _pad.buttonRight.justPressed || controls.RIGHT_P;
 		var accepted = _pad.buttonA.justPressed || controls.ACCEPT;
 		#if android
 			var BACK = _pad.buttonB.justPressed || FlxG.android.justReleased.BACK || controls.BACK;

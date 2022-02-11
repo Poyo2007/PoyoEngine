@@ -246,10 +246,10 @@ class StoryMenuState extends MusicBeatState
 			lock.y = grpWeekText.members[lock.ID].y;
 		});
 
-		var UP_P = _pad.buttonUp.justPressed || controls.UP;
-		var RIGHT_P = _pad.buttonRight.justPressed || controls.RIGHT;
-		var DOWN_P = _pad.buttonDown.justPressed || controls.DOWN;
-		var LEFT_P = _pad.buttonLeft.justPressed || controls.LEFT;
+		var UP_P = _pad.buttonUp.justPressed || controls.UP_P;
+		var RIGHT_P = _pad.buttonRight.justPressed || controls.RIGHT_P;
+		var DOWN_P = _pad.buttonDown.justPressed || controls.DOWN_P;
+		var LEFT_P = _pad.buttonLeft.justPressed || controls.LEFT_P;
 		
 		var RIGHT = _pad.buttonRight.pressed;
 		var LEFT = _pad.buttonLeft.pressed;
