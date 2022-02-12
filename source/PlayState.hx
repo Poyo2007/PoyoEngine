@@ -161,6 +161,7 @@ class PlayState extends MusicBeatState
 
 	var config:Config = new Config();
 	var downscroll_isenabled:Bool = false;
+	var susmode_isenabled:Bool = false;
 	var midscroll_isenabled:Bool = false;
 	var circles_isenabled:Bool = false;
 	var nobg_isenabled:Bool = false;
@@ -179,6 +180,7 @@ class PlayState extends MusicBeatState
 		// part of mobile controls in 750 line
 		// get downscroll settings
 		downscroll_isenabled = config.getdownscroll();
+    susmode_isenabled = config.getsusmode();
 		circles_isenabled = config.getcircles();
 		nobg_isenabled = config.getnobg();
 		nochar_isenabled = config.getnochar();
@@ -2838,7 +2840,7 @@ class PlayState extends MusicBeatState
 		{
 			gf.dance();
 		}
-
+	
 		if (!boyfriend.animation.curAnim.name.startsWith("sing"))
 		{
 			boyfriend.playAnim('idle');
@@ -2847,6 +2849,14 @@ class PlayState extends MusicBeatState
 		if (curBeat % 8 == 7 && curSong == 'Bopeebo')
 		{
 			boyfriend.playAnim('hey', true);
+		}
+		
+		if (curBeat % 8 == 7 && susmode_isenabled)
+		{
+			FlxG.camera.flash(FlxColor.RED, 0.8);
+			FlxG.sound.play(Paths.sound('sabotaged'));
+			health -= 0.6
+      
 		}
 
 		if (curBeat % 16 == 15 && SONG.song == 'Tutorial' && dad.curCharacter == 'gf' && curBeat > 16 && curBeat < 48)

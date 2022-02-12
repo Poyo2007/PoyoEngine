@@ -17,7 +17,7 @@ import WebViewVideo;
 
 import flixel.util.FlxSave;
 
-class ForLooksMenu extends MusicBeatState
+class GameModeMenu extends MusicBeatState
 {
 	var selector:FlxText;
 	var curSelected:Int = 0;
@@ -28,7 +28,7 @@ class ForLooksMenu extends MusicBeatState
 
 	private var grpControls:FlxTypedGroup<Alphabet>;
 
-	var menuItems:Array<String> = ['controls', 'set fps', 'downscroll: off', 'circle notes: off', 'hitsounds: off', 'bg', 'characters', 'About'];
+	var menuItems:Array<String> = ['sus mode: off'];
 
 	var _pad:FlxVirtualPad;
 
@@ -55,8 +55,8 @@ class ForLooksMenu extends MusicBeatState
 		grpControls = new FlxTypedGroup<Alphabet>();
 		add(grpControls);
 
-		if (config.getdownscroll()){
-			menuItems[menuItems.indexOf('downscroll: off')] = 'downscroll: on';
+		if (config.getsusmode()){
+			menuItems[menuItems.indexOf('sus mode: off')] = 'sus mode: on';
 		}
 		
 		/*if (config.getmidscroll()){
@@ -94,8 +94,10 @@ class ForLooksMenu extends MusicBeatState
 
 		_pad = new FlxVirtualPad(UP_DOWN, A_B);
 		_pad.alpha = 0.75;
+		#if mobile
 		this.add(_pad);
-		
+		#end
+
 		super.create();
 	}
 
@@ -104,16 +106,16 @@ class ForLooksMenu extends MusicBeatState
 		super.update(elapsed);
 
 		if (!insubstate){
-			UP_P = _pad.buttonUp.justReleased;
-			DOWN_P = _pad.buttonDown.justReleased;
+			UP_P = _pad.buttonUp.justPressed || controls.UP_P;
+			DOWN_P = _pad.buttonDown.justPressed || controls.DOWN_P;
 
 			#if android
-			BACK = _pad.buttonB.justPressed || FlxG.android.justReleased.BACK;
+			BACK = _pad.buttonB.justPressed || FlxG.android.justReleased.BACK || controls.BACK;
 			#else
-			BACK = _pad.buttonB.justPressed;
+			BACK = _pad.buttonB.justPressed || controls.BACK;
 			#end
 			
-			ACCEPT = _pad.buttonA.justReleased;
+			ACCEPT = _pad.buttonA.justReleased || controls.ACCEPT;
 		}
 		
 		if (ACCEPT)
@@ -132,8 +134,8 @@ class ForLooksMenu extends MusicBeatState
 					insubstate = true;
 					openSubState(new options.SetFpsSubState());
 				
-				case "downscroll: on" | "downscroll: off":
-					config.setdownscroll();
+				case "sus mode: on" | "sus mode: off":
+					config.setsusmode();
 					FlxG.resetState();
 					
 				case "circle notes: on" | "circle notes: off":

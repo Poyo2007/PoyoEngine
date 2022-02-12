@@ -28,7 +28,7 @@ class CategorySelectionMenu extends MusicBeatState
 
 	private var grpControls:FlxTypedGroup<Alphabet>;
 
-	var menuItems:Array<String> = ['gameplay', 'optimization'];
+	var menuItems:Array<String> = ['gameplay', 'optimization', 'gamemodes'];
 
 	var _pad:FlxVirtualPad;
 
@@ -107,6 +107,9 @@ class CategorySelectionMenu extends MusicBeatState
 				
 				case "optimization":
 				  FlxG.switchState(new options.OptimizationMenu());
+				  
+				case "for fun":
+				  FlxG.switchState(new options.GameModeMenu());
 			}
 		}
 

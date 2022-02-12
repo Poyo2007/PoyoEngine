@@ -27,6 +27,19 @@ class Config {
         return false;
     }
     
+    public function setsusmode(?value:Bool):Bool {
+		if (save.data.susmode == null) save.data.susmode = false;
+		
+		save.data.susmode = !save.data.susmode;
+		save.flush();
+        return save.data.susmode;
+	}
+
+    public function getsusmode():Bool {
+        if (save.data.susmode != null) return save.data.susmode;
+        return false;
+    }
+    
     public function setsplitassets(?value:Bool):Bool {
 		if (save.data.assetsplit == null) save.data.assetsplit = false;
 		
