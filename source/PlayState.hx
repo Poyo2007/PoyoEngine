@@ -112,6 +112,7 @@ class PlayState extends MusicBeatState
 	var phillyTrain:FlxSprite;
 	var trainSound:FlxSound;
 	var hitSound:FlxSound;
+	var SUS:FlxSound
 
 	var limo:FlxSprite;
 	var grpLimoDancers:FlxTypedGroup<BackgroundDancer>;
@@ -1324,8 +1325,7 @@ class PlayState extends MusicBeatState
 	                    remove(phillyTrain);
 	                    }
 
-		                  trainSound = new FlxSound().loadEmbedded(Paths.sound('train_passes'));
-		                  FlxG.sound.list.add(trainSound);
+		                  
 
 		                  // var cityLights:FlxSprite = new FlxSprite().loadGraphic(AssetPaths.win0.png);
 
@@ -2017,6 +2017,13 @@ class PlayState extends MusicBeatState
 					  hitSound = new FlxSound().loadEmbedded(Paths.sound('stolenfrompsych'));
 					  
 					 FlxG.sound.list.add(hitSound);
+					}
+					
+					if (susmode_isenabled)
+					{
+					  SUS = new FlxSound().loadEmbedded(Paths.sound('sabotage'));
+					  
+					 FlxG.sound.list.add(SUS);
 					}
 
 					switch (Math.abs(daNote.noteData))
@@ -2854,8 +2861,8 @@ class PlayState extends MusicBeatState
 		if (curBeat % 4 == 3 && susmode_isenabled)
 		{
 			FlxG.camera.flash(FlxColor.RED, 0.8);
-			FlxG.sound.play(Paths.sound('sabotaged'));
-			health -= 0.5;
+			SUS.play(true);
+			health -= 0.2;
 		}
 
 		if (curBeat % 16 == 15 && SONG.song == 'Tutorial' && dad.curCharacter == 'gf' && curBeat > 16 && curBeat < 48)
