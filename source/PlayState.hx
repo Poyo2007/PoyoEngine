@@ -2851,7 +2851,7 @@ class PlayState extends MusicBeatState
 			boyfriend.playAnim('hey', true);
 		}
 		
-		if (curBeat % 4 == 5 && susmode_isenabled)
+		if (curBeat % 4 == 3 && susmode_isenabled)
 		{
 			FlxG.camera.flash(FlxColor.RED, 0.8);
 			FlxG.sound.play(Paths.sound('sabotaged'));
