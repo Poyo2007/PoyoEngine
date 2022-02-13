@@ -28,7 +28,7 @@ class OptimizationMenu extends MusicBeatState
 
 	private var grpControls:FlxTypedGroup<Alphabet>;
 
-	var menuItems:Array<String> = ['bg', 'characters'];
+	var menuItems:Array<String> = ['bg', 'characters', 'menu bg'];
 
 	var _pad:FlxVirtualPad;
 
@@ -57,6 +57,10 @@ class OptimizationMenu extends MusicBeatState
 
 		if (config.getdownscroll()){
 			menuItems[menuItems.indexOf('downscroll: off')] = 'downscroll: on';
+		}
+		
+		if (config.getnomenubg()){
+			menuItems[menuItems.indexOf('menu bg')] = 'no menu bg';
 		}
 		
 		if (config.getsplitassets()){
@@ -143,6 +147,10 @@ class OptimizationMenu extends MusicBeatState
 					FlxG.resetState();
 					
 			  case "bg" | "no bg":
+					config.setnobg();
+					FlxG.resetState();
+			  
+			  case "no menu bg" | "menu bg":
 					config.setnobg();
 					FlxG.resetState();
 				

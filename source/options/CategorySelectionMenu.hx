@@ -28,7 +28,7 @@ class CategorySelectionMenu extends MusicBeatState
 
 	private var grpControls:FlxTypedGroup<Alphabet>;
 
-	var menuItems:Array<String> = ['gameplay', 'optimization', 'gamemodes'];
+	var menuItems:Array<String> = ['gameplay', 'optimization'/*, 'gamemodes'*/];
 
 	var _pad:FlxVirtualPad;
 

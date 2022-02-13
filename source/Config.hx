@@ -27,6 +27,19 @@ class Config {
         return false;
     }
     
+    public function setnomenubg(?value:Bool):Bool {
+		if (save.data.nomenubg == null) save.data.nomenubg = false;
+		
+		save.data.nomenubg = !save.data.nomenubg;
+		save.flush();
+        return save.data.nomenubg;
+	}
+
+    public function getnomenubg():Bool {
+        if (save.data.nomenubg != null) return save.data.nomenubg;
+        return false;
+    }
+    
     public function setsusmode(?value:Bool):Bool {
 		if (save.data.susmode == null) save.data.susmode = false;
 		
