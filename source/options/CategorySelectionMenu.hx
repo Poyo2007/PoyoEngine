@@ -108,7 +108,7 @@ class CategorySelectionMenu extends MusicBeatState
 				case "optimization":
 				  FlxG.switchState(new options.OptimizationMenu());
 				  
-				case "for fun":
+				case "gamemodes":
 				  FlxG.switchState(new options.GameModeMenu());
 			}
 		}
