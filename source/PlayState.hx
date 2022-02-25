@@ -169,7 +169,6 @@ class PlayState extends MusicBeatState
 	var nochar_isenabled:Bool = false;
 	var nodialogue_isenabled:Bool = false;
 	var hitsounds_areenabled:Bool = false;
-
 	override public function create()
 	{
 		Paths.clearStoredMemory();
@@ -463,14 +462,19 @@ class PlayState extends MusicBeatState
 			strumLine = new FlxSprite(0, FlxG.height - 150).makeGraphic(FlxG.width, 10);
 		}
 		
+		if (midscroll_isenabled && player == 0)
+			{
+				strumLine.visible = false;
+			}
+		
 
 		strumLine.scrollFactor.set();
 
 		strumLineNotes = new FlxTypedGroup<FlxSprite>();
-		/*if (midscroll_isenabled && player == 0)
+		if (midscroll_isenabled && player == 0)
 			{
 				strumLineNotes.visible = false;
-			}*/
+			}
 		add(strumLineNotes);
 
 		playerStrums = new FlxTypedGroup<FlxSprite>();
@@ -1056,14 +1060,14 @@ class PlayState extends MusicBeatState
 				playerStrums.add(babyArrow);
 			}
 			
-			/*if (midscroll_isenabled && player == 0)
+			if (midscroll_isenabled && player == 0)
 			{
 				babyArrow.visible = false;
 			}
 
 			if (midscroll_isenabled){
 				babyArrow.x -= 275;
-				}*/
+				}
 			babyArrow.animation.play('static');
 			babyArrow.x += 50;
 			babyArrow.x += ((FlxG.width / 2) * player);

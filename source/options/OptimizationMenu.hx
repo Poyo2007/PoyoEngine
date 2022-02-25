@@ -151,8 +151,8 @@ class OptimizationMenu extends MusicBeatState
 					FlxG.resetState();
 			  
 			  case "no menu bg" | "menu bg":
-					config.setnobg();
-					FlxG.resetState();
+					config.setnomenubg();
+					FlxG.switchState(new ResetYourGame());
 				
 				case "dialogue" | "no dialogue":
 					config.setnodialogue();
