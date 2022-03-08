@@ -462,7 +462,7 @@ class PlayState extends MusicBeatState
 			strumLine = new FlxSprite(0, FlxG.height - 150).makeGraphic(FlxG.width, 10);
 		}
 		
-		if (midscroll_isenabled && SONG.player2)
+		if (midscroll_isenabled)
 			{
 				strumLine.visible = false;
 			}
@@ -471,10 +471,6 @@ class PlayState extends MusicBeatState
 		strumLine.scrollFactor.set();
 
 		strumLineNotes = new FlxTypedGroup<FlxSprite>();
-		if (midscroll_isenabled && SONG.player2)
-			{
-				strumLineNotes.visible = false;
-			}
 		add(strumLineNotes);
 
 		playerStrums = new FlxTypedGroup<FlxSprite>();
@@ -1981,14 +1977,14 @@ class PlayState extends MusicBeatState
 					daNote.y = (strumLine.y - (Conductor.songPosition - daNote.strumTime) * (0.45 * FlxMath.roundDecimal(SONG.speed, 2)));
 				}else {
 					daNote.y = (strumLine.y - (Conductor.songPosition - daNote.strumTime) * (-0.45 * FlxMath.roundDecimal(SONG.speed, 2)));
-      /*if (midscroll_isenabled && player == 0)
+				}
+      if (midscroll_isenabled && player == 0)
 			{
 				daNote.visible = false;
-			}*/
+			}
 
 			if (midscroll_isenabled){
 				daNote.x -= 275;
-				}
 				}
 				
 				// i am so fucking sorry for this if condition
