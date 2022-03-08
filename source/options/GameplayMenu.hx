@@ -28,7 +28,7 @@ class GameplayMenu extends MusicBeatState
 
 	private var grpControls:FlxTypedGroup<Alphabet>;
 
-	var menuItems:Array<String> = ['controls', 'set fps', 'downscroll: off', 'circle notes: off', 'hitsounds: off', 'midscroll: off' 'About'];
+	var menuItems:Array<String> = ['controls', 'set fps', 'downscroll: off', 'circle notes: off', 'hitsounds: off', 'midscroll: off', 'About'];
 
 	var _pad:FlxVirtualPad;
 
