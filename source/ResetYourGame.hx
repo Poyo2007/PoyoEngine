@@ -19,8 +19,8 @@ class ResetYourGame extends MusicBeatState
 		super.create();
 		var bg:FlxSprite = new FlxSprite().makeGraphic(FlxG.width, FlxG.height, FlxColor.BLACK);
 		add(bg);
-		var txt:FlxText = new FlxText(0, 0, FlxG.width);
-		"For the option to take effect, please restart your game."
+		var txt:FlxText = new FlxText(0, 0, FlxG.width,
+		"For the option to take effect, please restart your game.");
 		txt.setFormat("VCR OSD Mono", 32, FlxColor.WHITE, CENTER);
 		txt.screenCenter();
 		add(txt);
