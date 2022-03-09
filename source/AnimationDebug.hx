@@ -184,7 +184,8 @@ class AnimationDebug extends FlxState
 				char.animOffsets.get(animList[curAnim])[0] += 1 * multiplier;
 			if (rightP)
 				char.animOffsets.get(animList[curAnim])[0] -= 1 * multiplier;
-
+			
+			
 			updateTexts();
 			genBoyOffsets(false);
 			char.playAnim(animList[curAnim]);

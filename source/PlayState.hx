@@ -1709,7 +1709,7 @@ class PlayState extends MusicBeatState
 
 		scoreTxt.text = "Score: " + songScore + " | Song: " + curSong;
 		
-		noteTxt.text = "Sicks: " + sicks + "| Goods: " + goods + "| Bads: " + bads + "| Shits: " + shits + "| Misses: " + misses + "| Notes in Total: " + total;
+		noteTxt.text = "Sicks: " + sicks + " | Goods: " + goods + " | Bads: " + bads + " | Shits: " + shits + " | Misses: " + misses + " | Notes in Total: " + total;
 
 		#if android
 		var enterPressed = FlxG.keys.justPressed.ENTER || FlxG.android.justReleased.BACK;
