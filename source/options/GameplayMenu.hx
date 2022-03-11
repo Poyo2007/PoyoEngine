@@ -140,6 +140,10 @@ class GameplayMenu extends MusicBeatState
 					config.setcircles();
 					FlxG.resetState();
 					
+				case "middlescroll: on" | "middlescroll: off":
+					config.setmidscroll();
+					FlxG.resetState();
+					
 				case "hitsounds: on" | "hitsounds: off":
 					config.sethitsound();
 					FlxG.resetState();
