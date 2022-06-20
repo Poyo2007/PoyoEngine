@@ -71,5 +71,5 @@ jobs:
       - name: Upload Artifact
         uses: actions/upload-artifact@v2.2.2
         with:
-          name: Android-Nightly
-          path: export/release/android/bin/app/build/outputs/apk/debug/GrapeSoda-debug.apk
+          name: Android Build
+          path: export/release/android/bin/app/build/outputs/apk/debug
