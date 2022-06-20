@@ -462,7 +462,7 @@ class PlayState extends MusicBeatState
 			strumLine = new FlxSprite(0, FlxG.height - 150).makeGraphic(FlxG.width, 10);
 		}
 		
-		if (midscroll_isenabled)
+		if (midscroll_isenabled && player == 0)
 			{
 				strumLine.visible = false;
 			}
