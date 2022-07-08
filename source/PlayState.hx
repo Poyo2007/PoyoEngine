@@ -2535,8 +2535,6 @@ class PlayState extends MusicBeatState
 				case 3:
 					boyfriend.playAnim('singRIGHTmiss', true);
 			}
-
-			updateAccuracy();
 		}
 	}
 
@@ -2557,12 +2555,11 @@ class PlayState extends MusicBeatState
 				noteMiss(3);
 			if (downP)
 				noteMiss(1);
-			updateAccuracy();
 		}
 
 	function noteCheck(keyP:Bool, note:Note):Void // sorry lol
 		{
-			else if (keyP)
+	    if (keyP)
 				{
 				goodNoteHit(note);
 				}
@@ -2615,8 +2612,6 @@ class PlayState extends MusicBeatState
 					note.kill();
 					notes.remove(note, true);
 					note.destroy();
-					
-					updateAccuracy();
 				}
 			}
 
