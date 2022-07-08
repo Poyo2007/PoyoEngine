@@ -2042,6 +2042,7 @@ class PlayState extends MusicBeatState
 					{
 						health -= 0.0475;
 						vocals.volume = 0;
+						noteMiss(daNote.noteData);
 						combo = 0;
 						misses += 1;
 					}
@@ -2324,6 +2325,7 @@ class PlayState extends MusicBeatState
 	private function keyShit():Void
 	{
 		// HOLDING
+    #if !mobile
 		var up = controls.UP;
 		var right = controls.RIGHT;
 		var down = controls.DOWN;
@@ -2338,6 +2340,22 @@ class PlayState extends MusicBeatState
 		var rightR = controls.RIGHT_R;
 		var downR = controls.DOWN_R;
 		var leftR = controls.LEFT_R;
+		#else
+		var up = mcontrols.UP;
+		var right = mcontrols.RIGHT;
+		var down = mcontrols.DOWN;
+		var left = mcontrols.LEFT;
+
+		var upP = mcontrols.UP_P;
+		var rightP = mcontrols.RIGHT_P;
+		var downP = mcontrols.DOWN_P;
+		var leftP = mcontrols.LEFT_P;
+
+		var upR = mcontrols.UP_R;
+		var rightR = mcontrols.RIGHT_R;
+		var downR = mcontrols.DOWN_R;
+		var leftR = mcontrols.LEFT_R;
+		#end
 	
 		var controlArray:Array<Bool> = [leftP, downP, upP, rightP];
 
@@ -2388,8 +2406,6 @@ class PlayState extends MusicBeatState
 										if (controlArray[ignoreList[shit]])
 											inIgnoreList = true;
 									}
-									if (!inIgnoreList && !theFunne)
-										badNoteCheck();
 								}
 							}
 						}
@@ -2437,10 +2453,6 @@ class PlayState extends MusicBeatState
 						notes.remove(daNote, true);
 						daNote.destroy();
 					}
-				}
-				else if (!theFunne)
-				{
-					badNoteCheck();
 				}
 			}
 	
@@ -2540,11 +2552,18 @@ class PlayState extends MusicBeatState
 		{
 			// just double pasting this shit cuz fuk u
 			// REDO THIS SYSTEM!
+			#if !mobile
 			var upP = controls.UP_P;
 			var rightP = controls.RIGHT_P;
 			var downP = controls.DOWN_P;
 			var leftP = controls.LEFT_P;
-	
+	    #else
+			var upP = mcontrols.UP_P;
+			var rightP = mccontrols.RIGHT_P;
+			var downP = controls.DOWN_P;
+			var leftP = mcontrols.LEFT_P;
+			#end
+
 			if (leftP)
 				noteMiss(0);
 			if (upP)
@@ -2561,10 +2580,6 @@ class PlayState extends MusicBeatState
 				{
 				goodNoteHit(note);
 				}
-			else if (!theFunne)
-			{
-				badNoteCheck();
-			}
 		}
 
 		function goodNoteHit(note:Note):Void
