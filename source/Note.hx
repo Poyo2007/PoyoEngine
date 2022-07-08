@@ -1,5 +1,6 @@
 package;
 
+import flixel.FlxG;
 import flixel.FlxSprite;
 import flixel.graphics.frames.FlxAtlasFrames;
 import flixel.math.FlxMath;
@@ -19,7 +20,6 @@ class Note extends FlxSprite
 	public var canBeHit:Bool = false;
 	public var tooLate:Bool = false;
 	public var wasGoodHit:Bool = false;
-	public var willMiss:Bool = false;
 	public var prevNote:Note;
 
 	public var sustainLength:Float = 0;
@@ -51,23 +51,11 @@ class Note extends FlxSprite
 		this.noteData = noteData;
 
 		var daStage:String = PlayState.curStage;
-		
-		var config:Config = new Config();
-	  var circles_isenabled:Bool = false;
-	  
-	  circles_isenabled = config.getcircles();
 
 		switch (daStage)
 		{
 			case 'school' | 'schoolEvil':
-			if (!circles_isenabled)
-			{
 				loadGraphic(Paths.image('weeb/pixelUI/arrows-pixels'), true, 17, 17);
-			}
-			else
-      {
-        loadGraphic(Paths.image('weeb/pixelUI/circles-pixels'), true, 17, 17);
-      }
 
 				animation.add('greenScroll', [6]);
 				animation.add('redScroll', [7]);
@@ -93,14 +81,7 @@ class Note extends FlxSprite
 				updateHitbox();
 
 			default:
-			if (!circles_isenabled)
-			{
 				frames = Paths.getSparrowAtlas('NOTE_assets');
-			}
-			else
-      {
-        frames = Paths.getSparrowAtlas('circleNOTE_assets');
-      }
 
 				animation.addByPrefix('greenScroll', 'green0');
 				animation.addByPrefix('redScroll', 'red0');
@@ -193,24 +174,15 @@ class Note extends FlxSprite
 
 		if (mustPress)
 		{
-			if (willMiss && !wasGoodHit)
-			{
-				tooLate = true;
-				canBeHit = false;
-			}
+			// The * 0.5 is so that it's easier to hit them too late, instead of too early
+			if (strumTime > Conductor.songPosition - Conductor.safeZoneOffset
+				&& strumTime < Conductor.songPosition + (Conductor.safeZoneOffset * 0.5))
+				canBeHit = true;
 			else
-			{
-				if (strumTime > Conductor.songPosition - Conductor.safeZoneOffset)
-				{
-					if (strumTime < Conductor.songPosition + 0.5 * Conductor.safeZoneOffset)
-						canBeHit = true;
-				}
-				else
-				{
-					willMiss = true;
-					canBeHit = true;
-				}
-			}
+				canBeHit = false;
+
+			if (strumTime < Conductor.songPosition - Conductor.safeZoneOffset && !wasGoodHit)
+				tooLate = true;
 		}
 		else
 		{
