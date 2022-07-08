@@ -2559,8 +2559,8 @@ class PlayState extends MusicBeatState
 			var leftP = controls.LEFT_P;
 	    #else
 			var upP = mcontrols.UP_P;
-			var rightP = mccontrols.RIGHT_P;
-			var downP = controls.DOWN_P;
+			var rightP = mcontrols.RIGHT_P;
+			var downP = mcontrols.DOWN_P;
 			var leftP = mcontrols.LEFT_P;
 			#end
 
