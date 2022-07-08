@@ -462,12 +462,6 @@ class PlayState extends MusicBeatState
 			strumLine = new FlxSprite(0, FlxG.height - 150).makeGraphic(FlxG.width, 10);
 		}
 		
-		if (midscroll_isenabled && player == 0)
-			{
-				strumLine.visible = false;
-			}
-		
-
 		strumLine.scrollFactor.set();
 
 		strumLineNotes = new FlxTypedGroup<FlxSprite>();
@@ -1054,11 +1048,6 @@ class PlayState extends MusicBeatState
 			if (player == 1)
 			{
 				playerStrums.add(babyArrow);
-			}
-			
-			if (midscroll_isenabled && player == 0)
-			{
-				babyArrow.visible = false;
 			}
 
 			if (midscroll_isenabled){
@@ -2687,9 +2676,6 @@ class PlayState extends MusicBeatState
 				gf.playAnim('sad');
 			}
 			combo = 0;
-
-			if (!practiceMode)
-				songScore -= 10;
 
 			FlxG.sound.play(Paths.soundRandom('missnote', 1, 3), FlxG.random.float(0.1, 0.2));
 			// FlxG.sound.play(Paths.sound('missnote1'), 1, false);
