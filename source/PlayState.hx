@@ -138,6 +138,7 @@ class PlayState extends MusicBeatState
 
 	// how big to stretch the pixel art assets
 	public static var daPixelZoom:Float = 6;
+	public static var theFunne:Bool = true;
 
 	var inCutscene:Bool = false;
 	
@@ -2322,29 +2323,9 @@ class PlayState extends MusicBeatState
 		var rightHold:Bool = false;
 		var leftHold:Bool = false;	
 
-	/*
-	OLD KEYSHIT KEPT FOR ARCHIVAL
-  private function keyShit():Void
+	private function keyShit():Void
 	{
 		// HOLDING
-		#if mobile
-
-		var up = mcontrols.UP;
-		var right = mcontrols.RIGHT;
-		var down = mcontrols.DOWN;
-		var left = mcontrols.LEFT;
-
-		var upP = mcontrols.UP_P;
-		var rightP = mcontrols.RIGHT_P;
-		var downP = mcontrols.DOWN_P;
-		var leftP = mcontrols.LEFT_P;
-
-		var upR = mcontrols.UP_R;
-		var rightR = mcontrols.RIGHT_R;
-		var downR = mcontrols.DOWN_R;
-		var leftR = mcontrols.LEFT_R;
-
-		#else
 		var up = controls.UP;
 		var right = controls.RIGHT;
 		var down = controls.DOWN;
@@ -2359,7 +2340,7 @@ class PlayState extends MusicBeatState
 		var rightR = controls.RIGHT_R;
 		var downR = controls.DOWN_R;
 		var leftR = controls.LEFT_R;
-		#end
+	
 		var controlArray:Array<Bool> = [leftP, downP, upP, rightP];
 
 		// FlxG.watch.addQuick('asdfa', upP);
@@ -2433,7 +2414,7 @@ class PlayState extends MusicBeatState
 					/* 
 						if (controlArray[daNote.noteData])
 							goodNoteHit(daNote);
-					 //
+					 */
 					// trace(daNote.noteData);
 					/* 
 						switch (daNote.noteData)
@@ -2451,6 +2432,7 @@ class PlayState extends MusicBeatState
 								if (upP || rightP || downP || leftP)
 									noteCheck(leftP, daNote);
 						}
+					 */
 					if (daNote.wasGoodHit)
 					{
 						daNote.kill();
@@ -2462,32 +2444,6 @@ class PlayState extends MusicBeatState
 				{
 					badNoteCheck();
 				}
-			}
-	
-			if ((up || right || down || left) && generatedMusic || (upHold || downHold || leftHold || rightHold) && generatedMusic)
-			{
-				notes.forEachAlive(function(daNote:Note)
-				{
-					if (daNote.canBeHit && daNote.mustPress && daNote.isSustainNote)
-					{
-						switch (daNote.noteData)
-						{
-							// NOTES YOU ARE HOLDING
-							case 2:
-								if (up || upHold)
-									goodNoteHit(daNote);
-							case 3:
-								if (right || rightHold)
-									goodNoteHit(daNote);
-							case 1:
-								if (down || downHold)
-									goodNoteHit(daNote);
-							case 0:
-								if (left || leftHold)
-									goodNoteHit(daNote);
-						}
-					}
-				});
 			}
 	
 			if (boyfriend.holdTimer > Conductor.stepCrochet * 4 * 0.001 && !up && !down && !right && !left)
@@ -2549,122 +2505,6 @@ class PlayState extends MusicBeatState
 					spr.centerOffsets();
 			});
 	}
-	*/
-	private function keyShit():Void
-	{
-	  #if !mobile
-		var holdingArray:Array<Bool> = [controls.LEFT, controls.DOWN, controls.UP, controls.RIGHT];
-		var controlArray:Array<Bool> = [controls.LEFT_P, controls.DOWN_P, controls.UP_P, controls.RIGHT_P];
-		var releaseArray:Array<Bool> = [controls.LEFT_R, controls.DOWN_R, controls.UP_R, controls.RIGHT_R];
-    #else
-    var holdingArray:Array<Bool> = [mcontrols.LEFT, mcontrols.DOWN, mcontrols.UP, mcontrols.RIGHT];
-		var controlArray:Array<Bool> = [mcontrols.LEFT_P, mcontrols.DOWN_P, mcontrols.UP_P, mcontrols.RIGHT_P];
-		var releaseArray:Array<Bool> = [mcontrols.LEFT_R, mcontrols.DOWN_R, mcontrols.UP_R, mcontrols.RIGHT_R];
-    #end
-
-		// FlxG.watch.addQuick('asdfa', upP);
-		if (holdingArray.contains(true) && generatedMusic)
-		{
-			notes.forEachAlive(function(daNote:Note)
-			{
-				if (daNote.isSustainNote && daNote.canBeHit && daNote.mustPress && holdingArray[daNote.noteData])
-					goodNoteHit(daNote);
-			});
-		}
-		if (controlArray.contains(true) && generatedMusic)
-		{
-			boyfriend.holdTimer = 0;
-
-			var possibleNotes:Array<Note> = [];
-
-			var ignoreList:Array<Int> = [];
-
-			var removeList:Array<Note> = [];
-
-			notes.forEachAlive(function(daNote:Note)
-			{
-				if (daNote.canBeHit && daNote.mustPress && !daNote.tooLate && !daNote.wasGoodHit)
-				{
-					if (ignoreList.contains(daNote.noteData))
-					{
-						for (possibleNote in possibleNotes)
-						{
-							if (possibleNote.noteData == daNote.noteData && Math.abs(daNote.strumTime - possibleNote.strumTime) < 10)
-							{
-								removeList.push(daNote);
-							}
-							else if (possibleNote.noteData == daNote.noteData && daNote.strumTime < possibleNote.strumTime)
-							{
-								possibleNotes.remove(possibleNote);
-								possibleNotes.push(daNote);
-							}
-						}
-					}
-					else
-					{
-						possibleNotes.push(daNote);
-						ignoreList.push(daNote.noteData);
-					}
-				}
-			});
-
-			for (badNote in removeList)
-			{
-				badNote.kill();
-				notes.remove(badNote, true);
-				badNote.destroy();
-			}
-
-			possibleNotes.sort(function(note1:Note, note2:Note)
-			{
-				return Std.int(note1.strumTime - note2.strumTime);
-			});
-
-			if (perfectMode)
-			{
-				goodNoteHit(possibleNotes[0]);
-			}
-			else if (possibleNotes.length > 0)
-			{
-				for (i in 0...controlArray.length)
-				{
-					if (controlArray[i] && !ignoreList.contains(i))
-					{
-						badNoteHit();
-					}
-				}
-				for (possibleNote in possibleNotes)
-				{
-					if (controlArray[possibleNote.noteData])
-					{
-						goodNoteHit(possibleNote);
-					}
-				}
-			}
-			else
-				badNoteHit();
-		}
-		if (boyfriend.holdTimer > 0.004 * Conductor.stepCrochet && !holdingArray.contains(true) && boyfriend.animation.curAnim.name.startsWith('sing') && !boyfriend.animation.curAnim.name.endsWith('miss'))
-		{
-			boyfriend.playAnim('idle');
-		}
-		playerStrums.forEach(function(spr:FlxSprite)
-		{
-			if (controlArray[spr.ID] && spr.animation.curAnim.name != 'confirm')
-				spr.animation.play('pressed');
-			if (!holdingArray[spr.ID])
-				spr.animation.play('static');
-
-			if (spr.animation.curAnim.name != 'confirm' || curStage.startsWith('school'))
-				spr.centerOffsets();
-			else
-			{
-				spr.centerOffsets();
-				spr.offset.x -= 13;
-				spr.offset.y -= 13;
-			}
-		});
-	}
 
 	function noteMiss(direction:Int = 1):Void
 	{
@@ -2676,18 +2516,13 @@ class PlayState extends MusicBeatState
 				gf.playAnim('sad');
 			}
 			combo = 0;
+			misses++;
+
+			songScore -= 10;
 
 			FlxG.sound.play(Paths.soundRandom('missnote', 1, 3), FlxG.random.float(0.1, 0.2));
 			// FlxG.sound.play(Paths.sound('missnote1'), 1, false);
 			// FlxG.log.add('played imss note');
-
-			boyfriend.stunned = true;
-
-			// get stunned for 5 seconds
-			new FlxTimer().start(5 / 60, function(tmr:FlxTimer)
-			{
-				boyfriend.stunned = false;
-			});
 
 			switch (direction)
 			{
@@ -2700,80 +2535,90 @@ class PlayState extends MusicBeatState
 				case 3:
 					boyfriend.playAnim('singRIGHTmiss', true);
 			}
+
+			updateAccuracy();
 		}
 	}
 
-	function badNoteHit()
-	{
-		// just double pasting this shit cuz fuk u
-		// REDO THIS SYSTEM!
-		#if !mobile
-		var leftP = controls.LEFT_P;
-		var downP = controls.DOWN_P;
-		var upP = controls.UP_P;
-		var rightP = controls.RIGHT_P;
-    #else
-		var leftP = mcontrols.LEFT_P;
-		var downP = mcontrols.DOWN_P;
-		var upP = mcontrols.UP_P;
-		var rightP = mcontrols.RIGHT_P;
-		#end
-		if (leftP)
-			noteMiss(0);
-		if (downP)
-			noteMiss(1);
-		if (upP)
-			noteMiss(2);
-		if (rightP)
-			noteMiss(3);
-	}
-
-	function goodNoteHit(note:Note):Void
-	{
-		if (!note.wasGoodHit)
+	function badNoteCheck()
 		{
-			if (!note.isSustainNote)
-			{
-				popUpScore(note.strumTime, note);
-				combo += 1;
-			}
+			// just double pasting this shit cuz fuk u
+			// REDO THIS SYSTEM!
+			var upP = controls.UP_P;
+			var rightP = controls.RIGHT_P;
+			var downP = controls.DOWN_P;
+			var leftP = controls.LEFT_P;
+	
+			if (leftP)
+				noteMiss(0);
+			if (upP)
+				noteMiss(2);
+			if (rightP)
+				noteMiss(3);
+			if (downP)
+				noteMiss(1);
+			updateAccuracy();
+		}
 
-			if (note.noteData >= 0)
-				health += 0.023;
-			else
-				health += 0.004;
-
-			switch (note.noteData)
-			{
-				case 0:
-					boyfriend.playAnim('singLEFT', true);
-				case 1:
-					boyfriend.playAnim('singDOWN', true);
-				case 2:
-					boyfriend.playAnim('singUP', true);
-				case 3:
-					boyfriend.playAnim('singRIGHT', true);
-			}
-
-			playerStrums.forEach(function(spr:FlxSprite)
-			{
-				if (Math.abs(note.noteData) == spr.ID)
+	function noteCheck(keyP:Bool, note:Note):Void // sorry lol
+		{
+			else if (keyP)
 				{
-					spr.animation.play('confirm', true);
+				goodNoteHit(note);
 				}
-			});
-
-			note.wasGoodHit = true;
-			vocals.volume = 1;
-
-			if (!note.isSustainNote)
+			else if (!theFunne)
 			{
-				note.kill();
-				notes.remove(note, true);
-				note.destroy();
+				badNoteCheck();
 			}
 		}
-	}
+
+		function goodNoteHit(note:Note):Void
+			{
+				if (!note.wasGoodHit)
+				{
+					if (!note.isSustainNote)
+					{
+						popUpScore(note.strumTime);
+						combo += 1;
+					}
+					else
+						totalNotesHit += 1;
+		
+					if (note.noteData >= 0)
+						health += 0.023;
+					else
+						health += 0.004;
+
+					switch (note.noteData)
+					{
+						case 2:
+							boyfriend.playAnim('singUP', true);
+						case 3:
+							boyfriend.playAnim('singRIGHT', true);
+						case 1:
+							boyfriend.playAnim('singDOWN', true);
+						case 0:
+							boyfriend.playAnim('singLEFT', true);
+					}
+		
+					playerStrums.forEach(function(spr:FlxSprite)
+					{
+						if (Math.abs(note.noteData) == spr.ID)
+						{
+							spr.animation.play('confirm', true);
+						}
+					});
+		
+					note.wasGoodHit = true;
+					vocals.volume = 1;
+		
+					note.kill();
+					notes.remove(note, true);
+					note.destroy();
+					
+					updateAccuracy();
+				}
+			}
 
 	var fastCarCanDrive:Bool = true;
 
