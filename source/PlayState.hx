@@ -2026,14 +2026,19 @@ class PlayState extends MusicBeatState
 				// I wouldn't have found this error with downscroll if I hadn't looked into the kade engine code (thanks to kade dev)
 				if (daNote.y < -daNote.height && !downscroll_isenabled || (daNote.y >= strumLine.y + 106) && downscroll_isenabled)
 				{
-					if (daNote.tooLate || !daNote.wasGoodHit)
-					{
-						health -= 0.0475;
-						vocals.volume = 0;
-						noteMiss(daNote.noteData);
-						combo = 0;
-						misses += 1;
-					}
+					if (daNote.isSustainNote && daNote.wasGoodHit)
+						{
+							daNote.kill();
+							notes.remove(daNote, true);
+							daNote.destroy();
+						}
+						else
+						{
+							health -= 0.075;
+							vocals.volume = 0;
+							if (theFunne)
+								noteMiss(daNote.noteData);
+						}
 
 					daNote.active = false;
 					daNote.visible = false;
@@ -2780,12 +2785,12 @@ class PlayState extends MusicBeatState
 			boyfriend.playAnim('hey', true);
 		}
 		
-		if (curBeat % 4 == 3 && susmode_isenabled)
+		/*if (curBeat % 4 == 3 && susmode_isenabled)
 		{
 			FlxG.camera.flash(FlxColor.RED, 0.8);
 			SUS.play(true);
 			health -= 0.2;
-		}
+		}*/
 
 		if (curBeat % 16 == 15 && SONG.song == 'Tutorial' && dad.curCharacter == 'gf' && curBeat > 16 && curBeat < 48)
 		{
