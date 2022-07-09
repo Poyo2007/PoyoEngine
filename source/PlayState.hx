@@ -1701,7 +1701,7 @@ class PlayState extends MusicBeatState
 
 		scoreTxt.text = "Score: " + songScore + " | Song: " + curSong;
 		
-		noteTxt.text = "Sicks: " + sicks + " | Goods: " + goods + " | Bads: " + bads + " | Shits: " + shits + " | Misses: " + misses + " | Notes in Total: " + total;
+		noteTxt.text = "Sicks: " + sicks + " | Goods: " + goods + " | Bads: " + bads + " | Shits: " + shits + " | Misses: " + misses;
 
 		#if android
 		var enterPressed = FlxG.keys.justPressed.ENTER || FlxG.android.justReleased.BACK;
@@ -2353,31 +2353,7 @@ class PlayState extends MusicBeatState
 		var controlArray:Array<Bool> = [leftP, downP, upP, rightP];
 
 		// FlxG.watch.addQuick('asdfa', upP);
-		if ((up || right || down || left) && generatedMusic || (upHold || downHold || leftHold || rightHold) && generatedMusic)
-			{
-				notes.forEachAlive(function(daNote:Note)
-				{
-					if (daNote.canBeHit && daNote.mustPress && daNote.isSustainNote)
-					{
-						switch (daNote.noteData)
-						{
-							// NOTES YOU ARE HOLDING
-							case 2:
-								if (up || upHold)
-									goodNoteHit(daNote);
-							case 3:
-								if (right || rightHold)
-									goodNoteHit(daNote);
-							case 1:
-								if (down || downHold)
-									goodNoteHit(daNote);
-							case 0:
-								if (left || leftHold)
-									goodNoteHit(daNote);
-						}
-					}
-				});
-			}
+		
 	
 			if (boyfriend.holdTimer > Conductor.stepCrochet * 4 * 0.001 && !up && !down && !right && !left)
 			{
