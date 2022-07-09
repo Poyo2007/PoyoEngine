@@ -2439,15 +2439,27 @@ class PlayState extends MusicBeatState
 						case 0:
 							if (left)
 								goodNoteHit(daNote, controlHoldArray);
+								
+							if (hitsounds_areenabled)
+						    hitSound.play(true);
 						case 1:
 							if (down)
 								goodNoteHit(daNote, controlHoldArray);
+							
+							if (hitsounds_areenabled)
+						    hitSound.play(true);
 						case 2:
 							if (up)
 								goodNoteHit(daNote, controlHoldArray);
+							
+							if (hitsounds_areenabled)
+						    hitSound.play(true);
 						case 3:
 							if (right)
 								goodNoteHit(daNote, controlHoldArray);
+							
+							if (hitsounds_areenabled)
+						    hitSound.play(true);
 					}
 				}
 			});
