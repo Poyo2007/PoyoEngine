@@ -28,7 +28,7 @@ class OptimizationMenu extends MusicBeatState
 
 	private var grpControls:FlxTypedGroup<Alphabet>;
 
-	var menuItems:Array<String> = ['bg', 'characters', 'menu bg'];
+	var menuItems:Array<String> = ['bg', 'characters'];
 
 	var _pad:FlxVirtualPad;
 
