@@ -1062,6 +1062,7 @@ class PlayState extends MusicBeatState
 
 		  strumLineNotes.add(babyArrow);
 	}
+}
 
 	function tweenCamIn():Void
 	{
