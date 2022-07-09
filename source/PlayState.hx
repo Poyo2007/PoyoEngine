@@ -138,12 +138,15 @@ class PlayState extends MusicBeatState
 
 	// how big to stretch the pixel art assets
 	public static var daPixelZoom:Float = 6;
-	public static var theFunne:Bool = true;
+	var successThisFrame:Array<Bool> = [false, false, false, false];
+	var missQueue:MissType = new MissType(0, false, null);
 
 	var inCutscene:Bool = false;
 	
 	public static var repPresses:Int = 0;
 	public static var repReleases:Int = 0;
+	
+	public static var theFunne:Bool = true;
 
 	#if desktop
 	// Discord RPC variables
@@ -461,6 +464,12 @@ class PlayState extends MusicBeatState
 			strumLine = new FlxSprite(0, FlxG.height - 150).makeGraphic(FlxG.width, 10);
 		}
 		
+		if (midscroll_isenabled)
+			{
+				strumLine.visible = false;
+			}
+		
+
 		strumLine.scrollFactor.set();
 
 		strumLineNotes = new FlxTypedGroup<FlxSprite>();
@@ -1043,14 +1052,15 @@ class PlayState extends MusicBeatState
 			}
 
 			babyArrow.ID = i;
-			if (midscroll_isenabled && player == 0)
-			{
-				babyArrow.visible = false;
-			}
 
 			if (player == 1)
 			{
 				playerStrums.add(babyArrow);
+			}
+			
+			if (midscroll_isenabled && player == 0)
+			{
+				babyArrow.visible = false;
 			}
 
 			if (midscroll_isenabled){
@@ -1060,9 +1070,9 @@ class PlayState extends MusicBeatState
 			babyArrow.x += 50;
 			babyArrow.x += ((FlxG.width / 2) * player);
 
-		  strumLineNotes.add(babyArrow);
+			strumLineNotes.add(babyArrow);
+		}
 	}
-}
 
 	function tweenCamIn():Void
 	{
@@ -1701,7 +1711,7 @@ class PlayState extends MusicBeatState
 
 		scoreTxt.text = "Score: " + songScore + " | Song: " + curSong;
 		
-		noteTxt.text = "Sicks: " + sicks + " | Goods: " + goods + " | Bads: " + bads + " | Shits: " + shits + " | Misses: " + misses;
+		noteTxt.text = "Sicks: " + sicks + " | Goods: " + goods + " | Bads: " + bads + " | Shits: " + shits + " | Misses: " + misses + " | Notes in Total: " + total;
 
 		#if android
 		var enterPressed = FlxG.keys.justPressed.ENTER || FlxG.android.justReleased.BACK;
@@ -1971,6 +1981,22 @@ class PlayState extends MusicBeatState
 					daNote.y = (strumLine.y - (Conductor.songPosition - daNote.strumTime) * (-0.45 * FlxMath.roundDecimal(SONG.speed, 2)));
 				}
 
+			if (midscroll_isenabled){
+				daNote.x -= 275;
+				}
+				
+				// i am so fucking sorry for this if condition
+				if (daNote.isSustainNote
+					&& daNote.y + daNote.offset.y <= strumLine.y + Note.swagWidth / 2
+					&& (!daNote.mustPress || (daNote.wasGoodHit || (daNote.prevNote.wasGoodHit && !daNote.canBeHit))))
+				{
+					var swagRect = new FlxRect(0, strumLine.y + Note.swagWidth / 2 - daNote.y, daNote.width * 2, daNote.height * 2);
+					swagRect.y /= daNote.scale.y;
+					swagRect.height -= swagRect.y;
+
+					daNote.clipRect = swagRect;
+				}
+
 				if (!daNote.mustPress && daNote.wasGoodHit)
 				{
 					if (SONG.song != 'Tutorial')
@@ -2026,19 +2052,13 @@ class PlayState extends MusicBeatState
 				// I wouldn't have found this error with downscroll if I hadn't looked into the kade engine code (thanks to kade dev)
 				if (daNote.y < -daNote.height && !downscroll_isenabled || (daNote.y >= strumLine.y + 106) && downscroll_isenabled)
 				{
-					if (daNote.isSustainNote && daNote.wasGoodHit)
-						{
-							daNote.kill();
-							notes.remove(daNote, true);
-							daNote.destroy();
-						}
-						else
-						{
-							health -= 0.075;
-							vocals.volume = 0;
-							if (theFunne)
-								noteMiss(daNote.noteData);
-						}
+					if (daNote.tooLate || !daNote.wasGoodHit)
+					{
+						health -= 0.0475;
+						vocals.volume = 0;
+						combo = 0;
+						misses += 1;
+					}
 
 					daNote.active = false;
 					daNote.visible = false;
@@ -2333,7 +2353,9 @@ class PlayState extends MusicBeatState
 		var rightR = controls.RIGHT_R;
 		var downR = controls.DOWN_R;
 		var leftR = controls.LEFT_R;
+		
 		#else
+		
 		var up = mcontrols.UP;
 		var right = mcontrols.RIGHT;
 		var down = mcontrols.DOWN;
@@ -2349,74 +2371,163 @@ class PlayState extends MusicBeatState
 		var downR = mcontrols.DOWN_R;
 		var leftR = mcontrols.LEFT_R;
 		#end
-	
-		var controlArray:Array<Bool> = [leftP, downP, upP, rightP];
 
+		var controlArray:Array<Bool> = [leftP, downP, upP, rightP];
+		var controlHoldArray:Array<Bool> = [left, down, up, right];
+		var controlReleaseArray:Array<Bool> = [leftR, downR, upR, rightR];
+
+		var startCount:Int = 0;
+
+		Conductor.safeZoneOffset = (Conductor.safeFrames / ((FlxG.updateFramerate / 60) * 60)) * 1000;
+		successThisFrame = [false, false, false, false];
+
+		missQueue.direction = 0;
+		missQueue.missedNote = null;
+		missQueue.missed = false;
 		// FlxG.watch.addQuick('asdfa', upP);
-		
-	
-			if (boyfriend.holdTimer > Conductor.stepCrochet * 4 * 0.001 && !up && !down && !right && !left)
+		if ((upP || rightP || downP || leftP) && !boyfriend.stunned && generatedMusic)
+		{
+			boyfriend.holdTimer = 0;
+			var possibleNotes:Array<Note> = [];
+
+			notes.forEachAlive(function(daNote:Note)
 			{
-				if (boyfriend.animation.curAnim.name.startsWith('sing') && !boyfriend.animation.curAnim.name.endsWith('miss'))
+				if (daNote.canBeHit && daNote.mustPress && !daNote.tooLate && !daNote.wasGoodHit)
+					possibleNotes.push(daNote);
+			});
+			startCount = possibleNotes.length;
+
+			if (possibleNotes.length > 0)
+			{
+				// Breaks with new input system
+				// Probably not needed anyway tho
+				if (perfectMode)
+					noteCheck(true, controlArray, possibleNotes[0]);
+
+				for (i in 0...possibleNotes.length)
 				{
-					boyfriend.playAnim('idle');
+					noteCheck(controlArray[possibleNotes[i].noteData], controlArray, possibleNotes[i]);
 				}
 			}
-	
-			playerStrums.forEach(function(spr:FlxSprite)
+			else
 			{
-				switch (spr.ID)
+				// No possible notes to hit lel
+				var foundDir:Bool = false;
+				missQueue.missed = true;
+				for (i in 0...5)
 				{
-					case 2:
-						if (upP && spr.animation.curAnim.name != 'confirm')
-						{
-							spr.animation.play('pressed');
-							trace('play');
-						}
-						if (upR)
-						{
-							spr.animation.play('static');
-							repReleases++;
-						}
-					case 3:
-						if (rightP && spr.animation.curAnim.name != 'confirm')
-							spr.animation.play('pressed');
-						if (rightR)
-						{
-							spr.animation.play('static');
-							repReleases++;
-						}
-					case 1:
-						if (downP && spr.animation.curAnim.name != 'confirm')
-							spr.animation.play('pressed');
-						if (downR)
-						{
-							spr.animation.play('static');
-							repReleases++;
-						}
-					case 0:
-						if (leftP && spr.animation.curAnim.name != 'confirm')
-							spr.animation.play('pressed');
-						if (leftR)
-						{
-							spr.animation.play('static');
-							repReleases++;
-						}
+					if (i < 3 && controlArray[i])
+					{
+						missQueue.direction = i;
+						foundDir = true;
+					}
+					if (i > 2 && !foundDir) missQueue.direction = i;
 				}
-				
-				if (spr.animation.curAnim.name == 'confirm' && !curStage.startsWith('school'))
+				missQueue.missedNote = null;
+			}
+
+			missNoteCheck(startCount, possibleNotes.length);
+		}
+
+		if ((up || right || down || left) && !boyfriend.stunned && generatedMusic)
+		{
+			notes.forEachAlive(function(daNote:Note)
+			{
+				if (daNote.canBeHit && daNote.mustPress && daNote.isSustainNote)
 				{
-					spr.centerOffsets();
-					spr.offset.x -= 13;
-					spr.offset.y -= 13;
+					switch (daNote.noteData)
+					{
+						// NOTES YOU ARE HOLDING
+						case 0:
+							if (left)
+								goodNoteHit(daNote, controlHoldArray);
+						case 1:
+							if (down)
+								goodNoteHit(daNote, controlHoldArray);
+						case 2:
+							if (up)
+								goodNoteHit(daNote, controlHoldArray);
+						case 3:
+							if (right)
+								goodNoteHit(daNote, controlHoldArray);
+					}
 				}
-				else
-					spr.centerOffsets();
 			});
+		}
+
+		if (boyfriend.holdTimer > Conductor.stepCrochet * 4 * 0.001 && !up && !down && !right && !left)
+		{
+			if (boyfriend.animation.curAnim.name.startsWith('sing') && !boyfriend.animation.curAnim.name.endsWith('miss'))
+			{
+				boyfriend.playAnim('idle');
+			}
+		}
+
+		playerStrums.forEach(function(spr:FlxSprite)
+		{
+			switch (spr.ID)
+			{
+				case 0:
+					if (leftP && spr.animation.curAnim.name != 'confirm')
+						spr.animation.play('pressed');
+					if (leftR)
+						spr.animation.play('static');
+				case 1:
+					if (downP && spr.animation.curAnim.name != 'confirm')
+						spr.animation.play('pressed');
+					if (downR)
+						spr.animation.play('static');
+				case 2:
+					if (upP && spr.animation.curAnim.name != 'confirm')
+						spr.animation.play('pressed');
+					if (upR)
+						spr.animation.play('static');
+				case 3:
+					if (rightP && spr.animation.curAnim.name != 'confirm')
+						spr.animation.play('pressed');
+					if (rightR)
+						spr.animation.play('static');
+			}
+
+			if (spr.animation.curAnim.name == 'confirm' && !curStage.startsWith('school'))
+			{
+				spr.centerOffsets();
+				spr.offset.x -= 13;
+				spr.offset.y -= 13;
+			}
+			else
+				spr.centerOffsets();
+		});
 	}
 
-	function noteMiss(direction:Int = 1):Void
+	function missNoteCheck(startCount:Int, currentCount:Int):Void
 	{
+		// Read from the missed note queue and decide what to do
+		if (missQueue.missed)
+		{
+			if (!successThisFrame[0] && !successThisFrame[1] && !successThisFrame[2] && !successThisFrame[3])
+				noteMiss(missQueue.direction, missQueue.missedNote);
+			else if (missQueue.missedNote != null)
+			{
+				if (startCount == currentCount)
+				{
+					noteMiss(missQueue.direction, missQueue.missedNote);
+				}
+			} else
+			{
+				noteMiss(missQueue.direction, missQueue.missedNote);
+			}
+		}
+	}
+
+	function noteMiss(direction:Int = 1, note:Note):Void
+	{
+		if (note != null)
+		{
+			if (note.wasGoodHit || successThisFrame[note.noteData])
+				return;
+		}
+
 		if (!boyfriend.stunned)
 		{
 			health -= 0.04;
@@ -2425,13 +2536,20 @@ class PlayState extends MusicBeatState
 				gf.playAnim('sad');
 			}
 			combo = 0;
-			misses++;
 
 			songScore -= 10;
 
 			FlxG.sound.play(Paths.soundRandom('missnote', 1, 3), FlxG.random.float(0.1, 0.2));
 			// FlxG.sound.play(Paths.sound('missnote1'), 1, false);
 			// FlxG.log.add('played imss note');
+
+			boyfriend.stunned = true;
+
+			// get stunned for 5 seconds
+			new FlxTimer().start(5 / 60, function(tmr:FlxTimer)
+			{
+				boyfriend.stunned = false;
+			});
 
 			switch (direction)
 			{
@@ -2447,84 +2565,131 @@ class PlayState extends MusicBeatState
 		}
 	}
 
-	function badNoteCheck()
+	function badNoteCheck(controlList:Array<Bool>, note:Note)
+	{
+		// i gotchu fam
+		var noMiss:Bool = true;
+		var hitNote:Bool = false;
+		var dupNote:Bool = false;
+		var missDir:Int = 0;
+		for (i in 0...5)
 		{
-			// just double pasting this shit cuz fuk u
-			// REDO THIS SYSTEM!
-			#if !mobile
-			var upP = controls.UP_P;
-			var rightP = controls.RIGHT_P;
-			var downP = controls.DOWN_P;
-			var leftP = controls.LEFT_P;
-	    #else
-			var upP = mcontrols.UP_P;
-			var rightP = mcontrols.RIGHT_P;
-			var downP = mcontrols.DOWN_P;
-			var leftP = mcontrols.LEFT_P;
-			#end
-
-			if (leftP)
-				noteMiss(0);
-			if (upP)
-				noteMiss(2);
-			if (rightP)
-				noteMiss(3);
-			if (downP)
-				noteMiss(1);
-		}
-
-	function noteCheck(keyP:Bool, note:Note):Void // sorry lol
-		{
-	    if (keyP)
-				{
-				goodNoteHit(note);
-				}
-		}
-
-		function goodNoteHit(note:Note):Void
+			if (note != null)
 			{
 				if (!note.wasGoodHit)
 				{
-					if (!note.isSustainNote)
+					if (controlList[i] && !successThisFrame[i] && i != note.noteData)
 					{
-						popUpScore(note.strumTime);
-						combo += 1;
-					}
-					else
-
-					if (note.noteData >= 0)
-						health += 0.023;
-					else
-						health += 0.004;
-
-					switch (note.noteData)
+						noMiss = false;
+						missDir = i;
+					} else if (!controlList[i] && i == note.noteData)
 					{
-						case 2:
-							boyfriend.playAnim('singUP', true);
-						case 3:
-							boyfriend.playAnim('singRIGHT', true);
-						case 1:
-							boyfriend.playAnim('singDOWN', true);
-						case 0:
-							boyfriend.playAnim('singLEFT', true);
-					}
-		
-					playerStrums.forEach(function(spr:FlxSprite)
-					{
-						if (Math.abs(note.noteData) == spr.ID)
+						if (!successThisFrame[i])
 						{
-							spr.animation.play('confirm', true);
+							noMiss = false;
+							missDir = i;
+						} else
+						{
+							dupNote = true;
 						}
-					});
-		
-					note.wasGoodHit = true;
-					vocals.volume = 1;
-		
-					note.kill();
-					notes.remove(note, true);
-					note.destroy();
+					}
+				}
+			} else 
+			{
+				if (controlList[i])
+				{
+					noMiss = false;
+					missDir = i;
 				}
 			}
+		}
+
+		if (noMiss && !dupNote){
+			if (note != null)
+			{
+				goodNoteHit(note, controlList);
+			}
+			hitNote = true;
+		}
+		else if (!hitNote && !dupNote)
+		{
+			if (note != null)
+			{
+				if (!note.wasGoodHit)
+				{
+					missQueue.direction = missDir;
+					missQueue.missedNote = note;
+					missQueue.missed = true;
+				}
+			} else
+			{
+				missQueue.direction = missDir;
+				missQueue.missedNote = note;
+				missQueue.missed = true;
+			}
+		}
+	}
+
+	function noteCheck(keyP:Bool, controlList:Array<Bool>, note:Note):Void
+	{
+		if (controlList[note.noteData] || successThisFrame[note.noteData])
+			goodNoteHit(note, controlList);
+		else
+		{
+			badNoteCheck(controlList, note);
+		}
+	}
+
+	function goodNoteHit(note:Note, controlList:Array<Bool>):Void
+	{
+		if (!note.wasGoodHit)
+		{
+			if (!note.isSustainNote)
+			{
+				popUpScore(note.strumTime);
+				combo += 1;
+			}
+
+			if (note.noteData >= 0)
+				health += 0.023;
+			else
+				health += 0.004;
+
+			switch (note.noteData)
+			{
+				case 0:
+					boyfriend.playAnim('singLEFT', true);
+				case 1:
+					boyfriend.playAnim('singDOWN', true);
+				case 2:
+					boyfriend.playAnim('singUP', true);
+				case 3:
+					boyfriend.playAnim('singRIGHT', true);
+			}
+
+			playerStrums.forEach(function(spr:FlxSprite)
+			{
+				if (Math.abs(note.noteData) == spr.ID)
+				{
+					spr.animation.play('confirm', true);
+				}
+			});
+
+			note.wasGoodHit = true;
+			vocals.volume = 1;
+			successThisFrame[note.noteData] = true;
+			missQueue.direction = 0;
+			missQueue.missedNote = null;
+			missQueue.missed = false;
+
+			if (!note.isSustainNote)
+			{
+				note.kill();
+				notes.remove(note, true);
+				note.destroy();
+			}
+		}
+	}
 
 	var fastCarCanDrive:Bool = true;
 
@@ -2691,12 +2856,12 @@ class PlayState extends MusicBeatState
 			boyfriend.playAnim('hey', true);
 		}
 		
-		/*if (curBeat % 4 == 3 && susmode_isenabled)
+		if (curBeat % 4 == 3 && susmode_isenabled)
 		{
 			FlxG.camera.flash(FlxColor.RED, 0.8);
 			SUS.play(true);
 			health -= 0.2;
-		}*/
+		}
 
 		if (curBeat % 16 == 15 && SONG.song == 'Tutorial' && dad.curCharacter == 'gf' && curBeat > 16 && curBeat < 48)
 		{
