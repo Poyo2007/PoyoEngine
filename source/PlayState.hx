@@ -2439,27 +2439,15 @@ class PlayState extends MusicBeatState
 						case 0:
 							if (left)
 								goodNoteHit(daNote, controlHoldArray);
-								
-							if (hitsounds_areenabled)
-						    hitSound.play(true);
 						case 1:
 							if (down)
 								goodNoteHit(daNote, controlHoldArray);
-							
-							if (hitsounds_areenabled)
-						    hitSound.play(true);
 						case 2:
 							if (up)
 								goodNoteHit(daNote, controlHoldArray);
-							
-							if (hitsounds_areenabled)
-						    hitSound.play(true);
 						case 3:
 							if (right)
 								goodNoteHit(daNote, controlHoldArray);
-							
-							if (hitsounds_areenabled)
-						    hitSound.play(true);
 					}
 				}
 			});
@@ -2682,6 +2670,8 @@ class PlayState extends MusicBeatState
 				if (Math.abs(note.noteData) == spr.ID)
 				{
 					spr.animation.play('confirm', true);
+					if (hitsounds_areenabled)
+						    hitSound.play(true);
 				}
 			});
 
