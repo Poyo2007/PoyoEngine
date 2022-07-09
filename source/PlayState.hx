@@ -464,12 +464,6 @@ class PlayState extends MusicBeatState
 		}else{
 			strumLine = new FlxSprite(0, FlxG.height - 150).makeGraphic(FlxG.width, 10);
 		}
-		
-		if (midscroll_isenabled)
-			{
-				strumLine.visible = false;
-			}
-		
 
 		strumLine.scrollFactor.set();
 
@@ -1059,9 +1053,12 @@ class PlayState extends MusicBeatState
 				playerStrums.add(babyArrow);
 			}
 			
-			if (midscroll_isenabled && player == 0)
+			if (player == 0)
 			{
-				babyArrow.visible = false;
+			  if (midscroll_isenabled)
+			  {
+				  babyArrow.visible = false;
+			  }
 			}
 
 			if (midscroll_isenabled){
